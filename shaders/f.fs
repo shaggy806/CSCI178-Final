@@ -3,7 +3,7 @@
 uniform sampler2D u_texture;
 uniform float u_time;
 
-varying vex2 v_texcoord;
+varying vec2 v_texcoord;
 varying vec4 v_color;
 
 vec3 hsv2rgb(float h)
@@ -43,8 +43,8 @@ void main() {
 
     // 4. Alpha masking (keeps the shape of your texture)
 
-    float alpha = texColor.a * v_color.a * smoothstep(0.5, 0.2, dist);
-
+    //float alpha = texColor.a * v_color.a * smoothstep(0.5, 0.2, dist);
+    float alpha = 1.0;
     
 
     gl_FragColor = vec4(finalRGB, alpha);

@@ -42,6 +42,9 @@ GLint _scene::initGL()
     sound->playSounds("sounds/FIREBIRD.mp3");
     myPlay->playerInit(7,2,"images/glorp.png");
     sh->initShader("shaders/v.vs","shaders/f.fs");
+    glUseProgram(sh->program);
+    glUseProgram(0);
+
     return true;
 }
 
@@ -119,6 +122,7 @@ void _scene::drawScene()
         myPlay->xV+=0.07*deltaTime;
         player->frame=(player->frame + 1) % player->animations[player->animation].size();
     }
+
     myPlay->timer += deltaTime;
     myPlay->yV-=0.1*deltaTime;
     myPlay->xV*=(0.99);
