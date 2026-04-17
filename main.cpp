@@ -134,7 +134,7 @@ BOOL CreateGLWindow(char* title, int width, int height, int bits, bool fullscree
 
         dwExStyle=WS_EX_APPWINDOW;								// Window Extended Style
         dwStyle= WS_POPUP;			// must handle Gsync situations: Windows Style
-        ShowCursor(FALSE);									// Hide Mouse Pointer
+        ShowCursor(TRUE);									// Hide Mouse Pointer
     }
     else
     {
@@ -306,7 +306,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
         mouseY = (int)(short)HIWORD(lParam);
 
         // Optional: print current mouse position
-        printf("Mouse: %d, %d\n", mouseX, mouseY);
+        //printf("Mouse: %d, %d\n", mouseX, mouseY);
 
         myScene->winMsg(hWnd, uMsg, wParam, lParam);
         return 0;
@@ -318,7 +318,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
         mouseX = (int)(short)LOWORD(lParam);
         mouseY = (int)(short)HIWORD(lParam);
 
-        printf("Left down at %d, %d\n", mouseX, mouseY);
+        //printf("Left down at %d, %d\n", mouseX, mouseY);
 
         myScene->winMsg(hWnd, uMsg, wParam, lParam);
         return 0;
@@ -330,7 +330,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
         mouseX = (int)(short)LOWORD(lParam);
         mouseY = (int)(short)HIWORD(lParam);
 
-        printf("Left up at %d, %d\n", mouseX, mouseY);
+        //printf("Left up at %d, %d\n", mouseX, mouseY);
 
         myScene->winMsg(hWnd, uMsg, wParam, lParam);
         return 0;
@@ -342,7 +342,7 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
         mouseX = (int)(short)LOWORD(lParam);
         mouseY = (int)(short)HIWORD(lParam);
 
-        printf("Right down at %d, %d\n", mouseX, mouseY);
+        //printf("Right down at %d, %d\n", mouseX, mouseY);
 
         myScene->winMsg(hWnd, uMsg, wParam, lParam);
         return 0;
@@ -386,10 +386,10 @@ int WINAPI WinMain(	HINSTANCE	hInstance,			// Instance
     int	fullscreenHeight = GetSystemMetrics(SM_CYSCREEN);
 
     // Ask The User Which Screen Mode They Prefer
-    if (MessageBox(NULL,"Would You Like To Run In Fullscreen Mode?", "Start FullScreen?",MB_YESNO|MB_ICONQUESTION)==IDNO)
-    {
-        fullscreen=FALSE;							// Windowed Mode
-    }
+//    if (MessageBox(NULL,"Would You Like To Run In Fullscreen Mode?", "Start FullScreen?",MB_YESNO|MB_ICONQUESTION)==IDNO)
+  //  {
+//        fullscreen=FALSE;							// Windowed Mode
+  //  }
 
     // Create Our OpenGL Window
     if (!CreateGLWindow("Game Engine Lesson 01",fullscreenWidth,fullscreenHeight,256,fullscreen))
