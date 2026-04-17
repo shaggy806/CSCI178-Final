@@ -3,12 +3,8 @@
 
 #include<_common.h>
 #include<_lightSettings.h>
-#include<_model.h>
-#include<_inputs.h>
-#include<_modelVBO.h>
 #include<_parallax.h>
 #include<_quad.h>
-#include<_player.h>
 #include<_sounds.h>
 #include<myPlayer.h>
 #include<firstShader.h>
@@ -34,14 +30,7 @@ class _scene
 
         _sounds *sound = new _sounds();
         _lightSettings *myLight = new _lightSettings();
-        _inputs *myKbMs = new _inputs();
-        _model *myModel = new _model();
-        _model *tea1 = new _model();
-        _model *tea2 = new _model();
-        _modelVBO *myModelVBO = new _modelVBO();
         _parallax *myParallax = new _parallax();
-        _quad *myQuad = new _quad();
-        _player *player = new _player();
         myPlayer *myPlay = new myPlayer();
         vec2 dim;
 
