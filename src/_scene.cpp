@@ -30,46 +30,97 @@ GLint _scene::initGL()
     sound->playSounds("sounds/FIREBIRD.mp3");
     myPlay->playerInit(7,2,"images/glorp.png");
     sh->initShader("shaders/v.vs","shaders/f.fs");
+    square->initQuad("images/download.jpg");
     glUseProgram(sh->program);
     glUseProgram(0);
 
+
+    manager->state = manager->MAIN_MENU;
     return true;
 }
 
-void _scene::reSize(GLint width, GLint height)
-{
-    GLfloat aspectRatio = (GLfloat)width/(GLfloat)height;
-    glViewport(0,0,width,height);                           // Setting the viewport
-
-    glMatrixMode(GL_PROJECTION);                            // Initiate the proction
-    glLoadIdentity();                                       // Initialize the matrix with identity matrix
-    gluPerspective(45.0,aspectRatio,0.1,100.0);             // Setup perspective projection
-
-    glMatrixMode(GL_MODELVIEW);                             // Initiate model & view matrix
-    glLoadIdentity();
-
-    dim.x = GetSystemMetrics(SM_CXSCREEN);
-    dim.y = GetSystemMetrics(SM_CYSCREEN);
-}
 
 float _scene::deltaTime=0;
 
+void _scene::reSize(GLint width, GLint height)
+{
+    if (height == 0) height = 1;
+
+    dim.x = width;   // actual window width
+    dim.y = height;  // actual window height
+
+    GLfloat aspectRatio = (GLfloat)width / (GLfloat)height;
+    glViewport(0, 0, width, height);
+
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    gluPerspective(45.0f, aspectRatio, 0.1f, 100.0f);
+
+    glMatrixMode(GL_MODELVIEW);
+    glLoadIdentity();
+}
+
 void _scene::drawScene()
 {
-
     auto currentTime = chrono::steady_clock::now();
     chrono::duration<float> elapsed = currentTime - lastTime;
     deltaTime = elapsed.count();
     lastTime = currentTime;
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear buffers
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
-    glColor3f(0.0,1.0,1.0); // Set color for my model
 
-    myParallax->drawBackground(dim.x,dim.y);
-    myParallax->scroll(true,myParallax->LEFT,0.05*deltaTime);
 
+    float wx, wy, wz;
+    if (mouseToWorldOnPlane(mouseX, mouseY, -8.0f, wx, wy, wz))
+    {
+        square->pos.x = wx;
+        square->pos.y = wy;
+    }
+
+    square->drawQuad();
+}
+
+bool _scene::mouseToWorldOnPlane(int mx, int my, float planeZ,
+                                 float& outX, float& outY, float& outZ)
+{
+    GLdouble model[16];
+    GLdouble proj[16];
+    GLint viewport[4];
+
+    GLdouble nearX, nearY, nearZ;
+    GLdouble farX,  farY,  farZ;
+
+    glGetDoublev(GL_MODELVIEW_MATRIX, model);
+    glGetDoublev(GL_PROJECTION_MATRIX, proj);
+    glGetIntegerv(GL_VIEWPORT, viewport);
+
+    const GLdouble winX = (GLdouble)mx;
+    const GLdouble winY = (GLdouble)(viewport[3] - my - 1);
+
+    if (gluUnProject(winX, winY, 0.0, model, proj, viewport,
+                     &nearX, &nearY, &nearZ) == GL_FALSE)
+        return false;
+
+    if (gluUnProject(winX, winY, 1.0, model, proj, viewport,
+                     &farX, &farY, &farZ) == GL_FALSE)
+        return false;
+
+    const GLdouble denom = farZ - nearZ;
+    if (fabs(denom) < 1e-8)
+        return false;
+
+    const GLdouble t = (planeZ - nearZ) / denom;
+
+    outX = (float)(nearX + t * (farX - nearX));
+    outY = (float)(nearY + t * (farY - nearY));
+    outZ = planeZ;
+    return true;
+}
+
+/*
     bool isWPressed = GetAsyncKeyState('W') & 0x8000;
     bool isAPressed = GetAsyncKeyState('A') & 0x8000;
     bool isSPressed = GetAsyncKeyState('S') & 0x8000;
@@ -79,7 +130,14 @@ void _scene::drawScene()
     bool isDownPressed = GetAsyncKeyState(VK_DOWN) & 0x8000;
     bool isLeftPressed = GetAsyncKeyState(VK_LEFT) & 0x8000;
     bool isRightPressed = GetAsyncKeyState(VK_RIGHT) & 0x8000;
+    */
 
+int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
+{
+
+}
+
+/* Movement Code
     if (isWPressed){
         }
     if (isSPressed){
@@ -108,30 +166,4 @@ void _scene::drawScene()
     myPlay->xV*=(0.99);
     myPlay->movePlay();
     myPlay->displayPlayer();
-}
-
-int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
-{
-    switch(uMsg) {
-    case WM_KEYDOWN:
-        break;
-    case WM_KEYUP:
-        break;
-
-    case WM_LBUTTONDOWN:
-    case WM_RBUTTONDOWN:
-    case WM_MBUTTONDOWN:
-        break;
-    case WM_LBUTTONUP:
-    case WM_RBUTTONUP:
-    case WM_MBUTTONUP:
-        break;
-
-    case WM_MOUSEMOVE:
-
-        break;
-    case WM_MOUSEWHEEL:
-
-        break;
-    }
-}
+*/

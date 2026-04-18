@@ -304,7 +304,8 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
     {
         mouseX = (int)(short)LOWORD(lParam);
         mouseY = (int)(short)HIWORD(lParam);
-
+        myScene->mouseX = mouseX;
+        myScene->mouseY = mouseY;
         // Optional: print current mouse position
         //printf("Mouse: %d, %d\n", mouseX, mouseY);
 

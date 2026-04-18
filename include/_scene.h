@@ -8,6 +8,7 @@
 #include<_sounds.h>
 #include<myPlayer.h>
 #include<firstShader.h>
+#include<_gameManager.h>
 
 class _scene
 {
@@ -20,6 +21,7 @@ class _scene
         GLint initGL(); // Initialize the openGL contents
         void reSize(GLint, GLint); // To handle resize window
         void drawScene(); // Render the final scene
+        bool mouseToWorldOnPlane(int,int,float,float&,float&,float&);
 
         int winMsg(HWND	hWnd,			// Handle For This Window
                    UINT	uMsg,			// Message For This Window
@@ -32,7 +34,12 @@ class _scene
         _lightSettings *myLight = new _lightSettings();
         _parallax *myParallax = new _parallax();
         myPlayer *myPlay = new myPlayer();
+        _gameManager *manager = new _gameManager();
         vec2 dim;
+        int mouseX;
+        int mouseY;
+
+        _quad *square = new _quad();
 
         firstShader *sh = new firstShader();
     protected:
