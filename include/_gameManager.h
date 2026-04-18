@@ -17,6 +17,7 @@ class _gameManager
 
         level *gameLevel = new level();
 
+        void initialize();
         void update();
         void drawWorld();
 
