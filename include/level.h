@@ -33,6 +33,7 @@ class level
         gleep *glp = new gleep();
         glorp *glrp = new glorp();
 
+        int winner = -1;
 
 
         _parallax *background = new _parallax();
@@ -51,6 +52,7 @@ class level
 
         bool playersCollide();
 
+        bool checkWinner();
         int gleepStepTimer = 0;
         int glorpStepTimer = 0;
 

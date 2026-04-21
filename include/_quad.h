@@ -13,6 +13,7 @@ class _quad
         vec3 rot;
         vec3 pos;
         vec3 scale;
+        float brightness;
 
         void initQuad(char *);
         void drawQuad();

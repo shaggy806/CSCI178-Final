@@ -6,6 +6,7 @@ _quad::_quad()
     pos.x = pos.y = 0;
     pos.z = -8;
     scale.x = scale.y = scale.z =1;
+    brightness = 1;
 }
 
 _quad::~_quad()
@@ -31,7 +32,8 @@ void _quad::drawQuad()
     myTex->bindTexture();
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glColor3f(1.0,1.0,1.0);             // Set base color
+
+    glColor3f(brightness,brightness,brightness);             // Set base color
 
 
     glTranslatef(pos.x,pos.y,pos.z);    // Places the object
