@@ -68,8 +68,8 @@ void level::updateLevel()
         glp->xPos-=glp->xV*dt;
         glp->xV =0;
     }
-    float accel = 1.3f;
-    float decel = 1.8f;
+    float accel = 3.0f;
+    float decel = 4.0f;
 
     if (isLeftPressed)
     {
@@ -93,7 +93,7 @@ void level::updateLevel()
         }
     }
 
-    float maxSpeed = 1.0f;
+    float maxSpeed = 0.6f;
 
     if (glp->xV > maxSpeed) glp->xV = maxSpeed;
     if (glp->xV < -maxSpeed) glp->xV = -maxSpeed;
