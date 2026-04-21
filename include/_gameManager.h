@@ -17,35 +17,40 @@ class _gameManager
         enum {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE};
 
         vec2 worldScale;
+        vec2 buttonScale;
+        vec2 mousePos;
+
+        bool mouseClicked;
 
         int currentState;
         int currentScreen;
 
-//        level *gameLevel = new level();
-
-        void initialize();
-        void update();
-        void drawWorld(float, float);
 
         level *gameLevel = new level();
+
+        void initialize();
+        void loadSprites();
+        void update();
+        void drawWorld(float, float);
+        void drawButtons();
+
         _parallax *menuScreen = new _parallax();
         _parallax *helpScreen = new _parallax();
         _parallax *pauseScreen = new _parallax();
 
-        struct buttonHitbox
+        struct button
         {
             float xPos;
             float yPos;
             float width;
             float height;
+            _quad sprite;
         };
 
-        buttonHitbox startButton;
-        buttonHitbox helpButton;
-        buttonHitbox exitButton;
-        buttonHitbox goBackButton;
+        vector<button> buttons;
 
-        buttonHitbox makeHitbox(float, float, float, float);
+        bool buttonColliding(int index);
+
 
     protected:
 

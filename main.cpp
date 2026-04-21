@@ -319,8 +319,8 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
         mouseX = (int)(short)LOWORD(lParam);
         mouseY = (int)(short)HIWORD(lParam);
 
-        //printf("Left down at %d, %d\n", mouseX, mouseY);
-
+        // printf("Left down at %d, %d\n", mouseX, mouseY);
+        myScene->manager->mouseClicked = true;
         myScene->winMsg(hWnd, uMsg, wParam, lParam);
         return 0;
     }

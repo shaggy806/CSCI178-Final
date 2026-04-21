@@ -37,6 +37,7 @@ GLint _scene::initGL()
 
     manager->initialize();
     setWorldEdges(manager);
+    manager->buttonScale = getScale(-5);
     return true;
 }
 
@@ -59,6 +60,7 @@ void _scene::reSize(GLint width, GLint height)
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     setWorldEdges(manager);
+    manager->buttonScale = getScale(-5);
 }
 
 void _scene::drawScene()
@@ -75,7 +77,12 @@ void _scene::drawScene()
 
 
     float wx, wy, wz;
-    mouseToWorldOnPlane(mouseX, mouseY, -8.0f, wx, wy, wz);
+    mouseToWorldOnPlane(mouseX, mouseY, -5.0f, wx, wy, wz);
+
+
+
+    manager->mousePos.x = wx;
+    manager->mousePos.y = wy;
 
     manager->update();
     manager->drawWorld(0,0);
@@ -155,6 +162,8 @@ vec2 _scene::getScale(float zPlane)
     vec2 retVal;
     retVal.x = maxX-minX;
     retVal.y = maxY-minY;
+
+    return retVal;
 }
 
 

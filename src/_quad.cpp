@@ -30,7 +30,7 @@ void _quad::drawQuad()
     glPushMatrix();
 
     myTex->bindTexture();
-    glColor3f(1.0,0.0,0.0);             // Set base color
+    glColor3f(1.0,1.0,1.0);             // Set base color
 
 
     glTranslatef(pos.x,pos.y,pos.z);    // Places the object

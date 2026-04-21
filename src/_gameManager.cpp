@@ -14,34 +14,55 @@ _gameManager::~_gameManager()
 void _gameManager::initialize()
 {
     currentState = MAIN_MENU;
+
+
+    loadSprites();
+}
+void _gameManager::loadSprites()
+{
     menuScreen->initPrlx("images/FinalMenuScreen.png");
     helpScreen->initPrlx("images/FinalHelpScreen.png");
     pauseScreen->initPrlx("images/FinalPausedScreen.png");
 
-    startButton = makeHitbox(-1.0, -1.0, -1.0, -1.0); // Placeholder Values
-    helpButton = makeHitbox(-1.0, -1.0, -1.0, -1.0);
-    exitButton = makeHitbox(-1.0, -1.0, -1.0, -1.0);
-    goBackButton = makeHitbox(-1.0, -1.0, -1.0, -1.0);
+
+
+
+    buttons.resize(3);
+    buttons[0].sprite.initQuad("images/ButtonExit.png");
+    buttons[0].xPos = -0.35;
+    buttons[0].yPos = -0.25;
+    buttons[0].width = 0.1;
+    buttons[0].height = 0.1;
+
+
+    buttons[1].sprite.initQuad("images/ButtonHelp.png");
+    buttons[1].xPos = 0.35;
+    buttons[1].yPos = -0.25;
+    buttons[1].width = 0.1;
+    buttons[1].height = 0.1;
+
+
+    buttons[2].sprite.initQuad("images/ButtonStart.png");
+    buttons[2].xPos = 0;
+    buttons[2].yPos = -0.3;
+    buttons[2].width = 0.1;
+    buttons[2].height = 0.1;
+
+    //buttons[3].sprite.initQuad("images/ButtonGoBack.png");
+
 }
 
-_gameManager::buttonHitbox _gameManager::makeHitbox(float x, float y, float h, float w)
-{
-    _gameManager::buttonHitbox b;
-
-    b.height = h;
-    b.width = w;
-    b.xPos = x;
-    b.yPos = y;
-
-    return b;
-}
 
 void _gameManager::update()
 {
     switch (currentState) {
 
     case MAIN_MENU:
-        menuScreen->drawBackground(worldScale.x,worldScale.y);
+        if (mouseClicked && buttonColliding(1)){
+            currentState = HELP_SCREEN;
+            currentScreen = HELPPAGE;
+        }
+        mouseClicked = false;
         break;
 
     case MAIN_GAME:
@@ -61,7 +82,11 @@ void _gameManager::update()
         break;
 
     case HELP_SCREEN:
-        // TO DO
+        if (mouseClicked){
+            mouseClicked = false;
+            currentState = MAIN_MENU;
+            currentScreen = MENUPAGE;
+        }
         break;
 
     case PAUSED:
@@ -81,7 +106,8 @@ void _gameManager::drawWorld(float, float)
     switch (currentScreen) {
 
     case MENUPAGE:
-        // TO DO
+        menuScreen->drawBackground(worldScale.x,worldScale.y);
+        drawButtons();
         break;
 
     case GAMEBG:
@@ -101,7 +127,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case HELPPAGE:
-        // TO DO
+        helpScreen->drawBackground(worldScale.x,worldScale.y);
         break;
 
     case PAUSEPAGE:
@@ -112,7 +138,29 @@ void _gameManager::drawWorld(float, float)
         break;
     }
 
-    glDisable(GL_LIGHTING);
-    glEnable(GL_TEXTURE_2D);
+
 }
+void _gameManager::drawButtons()
+{
+    for (int i = 0; i < buttons.size();i++){
+
+
+        buttons[i].sprite.pos.z = -5;
+        buttons[i].sprite.pos.x = buttons[i].xPos * buttonScale.x;
+        buttons[i].sprite.pos.y = buttons[i].yPos * buttonScale.y;
+        buttons[i].sprite.scale.x = buttons[i].width * buttonScale.x;
+        buttons[i].sprite.scale.y = buttons[i].height * buttonScale.x;
+
+        buttons[i].sprite.drawQuad();
+    }
+
+
+}
+
+bool _gameManager::buttonColliding(int index)
+{
+    float mouseDist = sqrt((mousePos.x-buttons[index].xPos*buttonScale.x)*(mousePos.x-buttons[index].xPos*buttonScale.x)+(mousePos.y-buttons[index].yPos*buttonScale.y)*(mousePos.y-buttons[index].yPos*buttonScale.y));
+    return (mouseDist <= buttons[index].width*buttonScale.x);
+}
+
 
