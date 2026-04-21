@@ -14,8 +14,6 @@ _gameManager::~_gameManager()
 void _gameManager::initialize()
 {
     currentState = MAIN_MENU;
-
-
     loadSprites();
 }
 void _gameManager::loadSprites()
@@ -24,23 +22,19 @@ void _gameManager::loadSprites()
     helpScreen->initPrlx("images/FinalHelpScreen.png");
     pauseScreen->initPrlx("images/FinalPausedScreen.png");
 
-
-
-
     buttons.resize(3);
+
     buttons[0].sprite.initQuad("images/ButtonExit.png");
     buttons[0].xPos = -0.35;
     buttons[0].yPos = -0.25;
     buttons[0].width = 0.1;
     buttons[0].height = 0.1;
 
-
     buttons[1].sprite.initQuad("images/ButtonHelp.png");
     buttons[1].xPos = 0.35;
     buttons[1].yPos = -0.25;
     buttons[1].width = 0.1;
     buttons[1].height = 0.1;
-
 
     buttons[2].sprite.initQuad("images/ButtonStart.png");
     buttons[2].xPos = 0;
@@ -58,7 +52,8 @@ void _gameManager::update()
     switch (currentState) {
 
     case MAIN_MENU:
-        if (mouseClicked && buttonColliding(1)){
+        if (mouseClicked && buttonColliding(1))
+        {
             currentState = HELP_SCREEN;
             currentScreen = HELPPAGE;
         }
@@ -82,7 +77,8 @@ void _gameManager::update()
         break;
 
     case HELP_SCREEN:
-        if (mouseClicked){
+        if (mouseClicked)
+        {
             mouseClicked = false;
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
@@ -103,7 +99,8 @@ void _gameManager::drawWorld(float, float)
     glDisable(GL_LIGHTING);
     glEnable(GL_TEXTURE_2D);
 
-    switch (currentScreen) {
+    switch (currentScreen)
+    {
 
     case MENUPAGE:
         menuScreen->drawBackground(worldScale.x,worldScale.y);
@@ -142,9 +139,8 @@ void _gameManager::drawWorld(float, float)
 }
 void _gameManager::drawButtons()
 {
-    for (int i = 0; i < buttons.size();i++){
-
-
+    for (int i = 0; i < buttons.size();i++)
+    {
         buttons[i].sprite.pos.z = -5;
         buttons[i].sprite.pos.x = buttons[i].xPos * buttonScale.x;
         buttons[i].sprite.pos.y = buttons[i].yPos * buttonScale.y;
@@ -153,14 +149,12 @@ void _gameManager::drawButtons()
 
         buttons[i].sprite.drawQuad();
     }
-
-
 }
 
 bool _gameManager::buttonColliding(int index)
 {
-    float mouseDist = sqrt((mousePos.x-buttons[index].xPos*buttonScale.x)*(mousePos.x-buttons[index].xPos*buttonScale.x)+(mousePos.y-buttons[index].yPos*buttonScale.y)*(mousePos.y-buttons[index].yPos*buttonScale.y));
-    return (mouseDist <= buttons[index].width*buttonScale.x);
+    float mouseDist = sqrt( (mousePos.x - buttons[index].xPos * buttonScale.x) * (mousePos.x - buttons[index].xPos * buttonScale.x) + (mousePos.y - buttons[index].yPos * buttonScale.y) * (mousePos.y - buttons[index].yPos * buttonScale.y) );
+    return (mouseDist <= buttons[index].width * buttonScale.x);
 }
 
 

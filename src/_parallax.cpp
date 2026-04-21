@@ -6,8 +6,6 @@ _parallax::_parallax()
 
     xMax = yMax = 1.0;
     xMin = yMin = 0.0;
-
-
 }
 
 _parallax::~_parallax()
