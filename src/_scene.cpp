@@ -30,7 +30,7 @@ GLint _scene::initGL()
     sound->playSounds("sounds/FIREBIRD.mp3");
     myPlay->playerInit(7,2,"images/glorp.png");
     sh->initShader("shaders/v.vs","shaders/f.fs");
-    square->initQuad("images/download.jpg");
+    square->initQuad("images/BlockPlatformWide.png");
     glUseProgram(sh->program);
     glUseProgram(0);
 
