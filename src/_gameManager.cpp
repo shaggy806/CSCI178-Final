@@ -2,7 +2,7 @@
 
 _gameManager::_gameManager()
 {
-    actionTrigger = MAIN_MENU;
+    currentState = MAIN_MENU;
     currentScreen = MENUPAGE;
 }
 
@@ -13,9 +13,10 @@ _gameManager::~_gameManager()
 
 void _gameManager::initialize()
 {
-    menuScreen->initPrlx("images/menuScreen.png");
-    helpScreen->initPrlx("images/HowToPlayScreen.png");
-    pauseScreen->initPrlx("images/PausePop_Up.png");
+    currentState = MAIN_MENU;
+    menuScreen->initPrlx("images/FinalMenuScreen.png");
+    helpScreen->initPrlx("images/FinalHelpScreen.png");
+    pauseScreen->initPrlx("images/FinalPausedScreen.png");
 
     startButton = makeHitbox(-1.0, -1.0, -1.0, -1.0); // Placeholder Values
     helpButton = makeHitbox(-1.0, -1.0, -1.0, -1.0);
@@ -23,21 +24,24 @@ void _gameManager::initialize()
     goBackButton = makeHitbox(-1.0, -1.0, -1.0, -1.0);
 }
 
-_gameManager::buttonHitbox _gameManager::makeHitbox(float, float, float, float)
+_gameManager::buttonHitbox _gameManager::makeHitbox(float x, float y, float h, float w)
 {
     _gameManager::buttonHitbox b;
 
-    //TO DO
+    b.height = h;
+    b.width = w;
+    b.xPos = x;
+    b.yPos = y;
 
     return b;
 }
 
 void _gameManager::update()
 {
-    switch (actionTrigger) {
+    switch (currentState) {
 
     case MAIN_MENU:
-        // TO DO
+        menuScreen->drawBackground(worldScale.x,worldScale.y);
         break;
 
     case MAIN_GAME:

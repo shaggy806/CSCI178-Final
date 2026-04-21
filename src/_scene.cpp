@@ -35,7 +35,8 @@ GLint _scene::initGL()
     glUseProgram(0);
 
 
-    manager->state = manager->MAIN_MENU;
+    manager->initialize();
+    setWorldEdges(manager);
     return true;
 }
 
@@ -55,9 +56,9 @@ void _scene::reSize(GLint width, GLint height)
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     gluPerspective(45.0f, aspectRatio, 0.1f, 100.0f);
-
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+    setWorldEdges(manager);
 }
 
 void _scene::drawScene()
@@ -74,13 +75,11 @@ void _scene::drawScene()
 
 
     float wx, wy, wz;
-    if (mouseToWorldOnPlane(mouseX, mouseY, -8.0f, wx, wy, wz))
-    {
-        square->pos.x = wx;
-        square->pos.y = wy;
-    }
+    mouseToWorldOnPlane(mouseX, mouseY, -8.0f, wx, wy, wz);
 
-    square->drawQuad();
+    manager->update();
+    manager->drawWorld(0,0);
+
 }
 
 bool _scene::mouseToWorldOnPlane(int mx, int my, float planeZ,
@@ -136,6 +135,28 @@ int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 
 }
+
+void _scene::setWorldEdges(_gameManager *managerToUpdate)
+{
+    float minX,maxX,minY,maxY,Z;
+    mouseToWorldOnPlane(0,0,-30,minX,maxY,Z);
+    mouseToWorldOnPlane(dim.x,dim.y,-30,maxX,minY,Z);
+
+    managerToUpdate->worldScale.x = maxX-minX;
+    managerToUpdate->worldScale.y = maxY-minY;
+
+}
+vec2 _scene::getScale(float zPlane)
+{
+    float minX,maxX,minY,maxY,Z;
+    mouseToWorldOnPlane(0,0,zPlane,minX,maxY,Z);
+    mouseToWorldOnPlane(dim.x,dim.y,zPlane,maxX,minY,Z);
+
+    vec2 retVal;
+    retVal.x = maxX-minX;
+    retVal.y = maxY-minY;
+}
+
 
 /* Movement Code
     if (isWPressed){

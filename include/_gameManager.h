@@ -13,11 +13,13 @@ class _gameManager
         _gameManager();
         virtual ~_gameManager();
         bool paused;
-        enum state {MAIN_MENU, LEVEL_SELECT, PLAYER_SELECT, MAIN_GAME, END_SCREEN, HELP_SCREEN, PAUSED};
-        enum screen {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE};
+        enum {MAIN_MENU, LEVEL_SELECT, PLAYER_SELECT, MAIN_GAME, END_SCREEN, HELP_SCREEN, PAUSED};
+        enum {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE};
 
-        state actionTrigger;
-        screen currentScreen;
+        vec2 worldScale;
+
+        int currentState;
+        int currentScreen;
 
 //        level *gameLevel = new level();
 
@@ -25,6 +27,7 @@ class _gameManager
         void update();
         void drawWorld(float, float);
 
+        level *gameLevel = new level();
         _parallax *menuScreen = new _parallax();
         _parallax *helpScreen = new _parallax();
         _parallax *pauseScreen = new _parallax();

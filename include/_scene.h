@@ -22,6 +22,8 @@ class _scene
         void reSize(GLint, GLint); // To handle resize window
         void drawScene(); // Render the final scene
         bool mouseToWorldOnPlane(int,int,float,float&,float&,float&);
+        void setWorldEdges(_gameManager*);
+        vec2 getScale(float zPlane);
 
         int winMsg(HWND	hWnd,			// Handle For This Window
                    UINT	uMsg,			// Message For This Window
