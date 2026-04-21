@@ -15,7 +15,7 @@ level::~level()
 void level::loadSprites()
 {
     sprites.resize(1);
-    sprites[0].initQuad("images/BlockPlatformWide.png");
+    sprites[0].initQuad("images/BlockPlatformUltraWide.png");
 }
 
 void level::loadLevel(int levelID)
