@@ -62,11 +62,19 @@ void _gameManager::update()
             currentState = HELP_SCREEN;
             currentScreen = HELPPAGE;
         }
+        else if (mouseClicked && buttonColliding(0)){
+            exit(0);
+        }
+        else if (mouseClicked && buttonColliding(2)){
+            gameLevel->loadLevel(1);
+            currentState = MAIN_GAME;
+            currentScreen = GAMEBG;
+        }
         mouseClicked = false;
         break;
 
     case MAIN_GAME:
-        // TO DO
+        gameLevel->updateLevel();
         break;
 
     case LEVEL_SELECT:
@@ -111,7 +119,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case GAMEBG:
-        // TO DO
+        gameLevel->drawLevel();
         break;
 
     case LEVELSELECTPAGE:

@@ -38,6 +38,8 @@ GLint _scene::initGL()
     manager->initialize();
     setWorldEdges(manager);
     manager->buttonScale = getScale(-5);
+    manager->gameLevel->worldScale = manager->worldScale;
+    manager->gameLevel->levelScale = getScale(-8);
     return true;
 }
 
@@ -59,8 +61,12 @@ void _scene::reSize(GLint width, GLint height)
     gluPerspective(45.0f, aspectRatio, 0.1f, 100.0f);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
+
     setWorldEdges(manager);
     manager->buttonScale = getScale(-5);
+
+    manager->gameLevel->worldScale = manager->worldScale;
+    manager->gameLevel->levelScale = getScale(-8);
 }
 
 void _scene::drawScene()
@@ -84,9 +90,9 @@ void _scene::drawScene()
     manager->mousePos.x = wx;
     manager->mousePos.y = wy;
 
+    manager->gameLevel->dt = deltaTime;
     manager->update();
     manager->drawWorld(0,0);
-
 }
 
 bool _scene::mouseToWorldOnPlane(int mx, int my, float planeZ,
