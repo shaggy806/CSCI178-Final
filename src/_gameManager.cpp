@@ -49,21 +49,21 @@ void _gameManager::loadSprites()
     buttons[2].height = 0.1;
     buttons[2].screen = MAIN_MENU;
 
-    buttons[3].sprite.initQuad("images/ButtonStart.png");
+    buttons[3].sprite.initQuad("images/ButtonLV1.png");
     buttons[3].xPos = -0.25;
     buttons[3].yPos = 0;
     buttons[3].width = 0.1;
     buttons[3].height = 0.1;
     buttons[3].screen = LEVEL_SELECT;
 
-    buttons[4].sprite.initQuad("images/ButtonStart.png");
+    buttons[4].sprite.initQuad("images/ButtonLV2.png");
     buttons[4].xPos = 0;
     buttons[4].yPos = 0;
     buttons[4].width = 0.1;
     buttons[4].height = 0.1;
     buttons[4].screen = LEVEL_SELECT;
 
-    buttons[5].sprite.initQuad("images/ButtonStart.png");
+    buttons[5].sprite.initQuad("images/ButtonLV3.png");
     buttons[5].xPos = 0.25;
     buttons[5].yPos = 0;
     buttons[5].width = 0.1;
@@ -78,6 +78,13 @@ void _gameManager::loadSprites()
 
 void _gameManager::update()
 {
+    for (int i = 0; i < buttons.size(); i++)
+    {
+        if (buttons[i].screen == currentState)
+            buttonColliding(i);   // updates brightness every frame
+        else
+            buttons[i].sprite.brightness = 1.0f;
+    }
     switch (currentState) {
 
     case MAIN_MENU:
@@ -214,6 +221,7 @@ void _gameManager::drawWorld(float, float)
 }
 void _gameManager::drawButtons()
 {
+    glDisable(GL_LIGHTING);
     for (int i = 0; i < buttons.size();i++)
     {
         if (buttons[i].screen == currentState){
@@ -231,7 +239,14 @@ void _gameManager::drawButtons()
 bool _gameManager::buttonColliding(int index)
 {
     float mouseDist = sqrt( (mousePos.x - buttons[index].xPos * buttonScale.x) * (mousePos.x - buttons[index].xPos * buttonScale.x) + (mousePos.y - buttons[index].yPos * buttonScale.y) * (mousePos.y - buttons[index].yPos * buttonScale.y) );
-    return (mouseDist <= buttons[index].width * buttonScale.x);
+    bool thing = (mouseDist <= buttons[index].width * buttonScale.x);
+    if (thing){
+        buttons[index].sprite.brightness = 0.8;
+    } else{
+        buttons[index].sprite.brightness = 1.0;
+    }
+    return thing;
+
 }
 
 
