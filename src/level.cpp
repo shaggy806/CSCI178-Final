@@ -69,7 +69,7 @@ void level::updateLevel()
         glp->xV =0;
     }
     float accel = 1.3f;
-    float decel = 1.5f;
+    float decel = 1.8f;
 
     if (isLeftPressed)
     {
@@ -93,7 +93,7 @@ void level::updateLevel()
         }
     }
 
-    float maxSpeed = 0.45f;
+    float maxSpeed = 1.0f;
 
     if (glp->xV > maxSpeed) glp->xV = maxSpeed;
     if (glp->xV < -maxSpeed) glp->xV = -maxSpeed;
@@ -163,6 +163,21 @@ void level::updateLevel()
     }
     glrp->yV -= 1.5 * dt;
 
+    glp->attackCooldown+=dt;
+    glrp->attackCooldown+=dt;
+
+    if (playersCollide()){
+        if (isSPressed && glrp->attackCooldown>1){
+            glp->xV = glrp->xV*20;
+            glp->yV = 0.6;
+            glrp->attackCooldown = 0;
+        }
+        if (isDownPressed && glp->attackCooldown>1){
+            glrp->xV = glp->xV*20;
+            glrp->yV = 0.6;
+            glp->attackCooldown = 0;
+        }
+    }
 
 }
 
@@ -265,6 +280,25 @@ bool level::glorpCollide()
             return true;
         }
     }
+    return false;
 }
 
+
+bool level::playersCollide()
+{
+    float glpLeft   = glp->xPos - glp->width  / 1.2f;
+    float glpRight  = glp->xPos + glp->width  / 1.2f;
+    float glpBottom = glp->yPos - glp->height / 1.25f;
+    float glpTop    = glp->yPos + glp->height / 1.25f;
+
+    float glrpLeft   = glrp->xPos - glrp->width  / 1.2f;
+    float glrpRight  = glrp->xPos + glrp->width  / 1.2f;
+    float glrpBottom = glrp->yPos - glrp->height / 1.0f;
+    float glrpTop    = glrp->yPos + glrp->height / 1.0f;
+
+    return (glpRight > glrpLeft &&
+            glpLeft < glrpRight &&
+            glpTop > glrpBottom &&
+            glpBottom < glrpTop);
+}
 

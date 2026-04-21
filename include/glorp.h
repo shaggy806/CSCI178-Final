@@ -20,6 +20,7 @@ class glorp
         int frame;
         float fps;
         float timer;
+        float attackCooldown;
         vector<vector<int>> animations;
 
 

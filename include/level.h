@@ -46,6 +46,8 @@ class level
         bool gleepCollide();
         bool glorpCollide();
 
+        bool playersCollide();
+
     protected:
 
     private:
