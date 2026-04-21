@@ -21,6 +21,8 @@ void _gameManager::loadSprites()
     menuScreen->initPrlx("images/FinalMenuScreen.png");
     helpScreen->initPrlx("images/FinalHelpScreen.png");
     pauseScreen->initPrlx("images/FinalPausedScreen.png");
+    gleepWin->initPrlx("images/GleepWinsGlorpLoses.png");
+    glorpWin->initPrlx("images/GlorpWinsGleepLoses.png");
 
     buttons.resize(6);
 
@@ -99,7 +101,12 @@ void _gameManager::update()
         if (gameLevel->checkWinner()){
             currentState = END_SCREEN;
             currentScreen = ENDPAGE;
+        } else if (GetAsyncKeyState('P') & 0x8000)
+        {
+            currentState = PAUSED;
+            currentScreen = PAUSEPAGE;
         }
+
         break;
 
     case LEVEL_SELECT:
@@ -145,7 +152,12 @@ void _gameManager::update()
         break;
 
     case PAUSED:
-        // TO DO
+        if (mouseClicked)
+        {
+            mouseClicked = false;
+            currentState = MAIN_GAME;
+            currentScreen = GAMEBG;
+        }
         break;
 
     default:
@@ -179,7 +191,11 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case ENDPAGE:
-        // TO DO
+        if (gameLevel->winner == 0){
+            glorpWin->drawBackground(worldScale.x,worldScale.y);
+        } else{
+            gleepWin->drawBackground(worldScale.x,worldScale.y);
+        }
         break;
 
     case HELPPAGE:
@@ -187,7 +203,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case PAUSEPAGE:
-        // TO DO
+        pauseScreen->drawBackground(worldScale.x,worldScale.y);
         break;
 
     default:

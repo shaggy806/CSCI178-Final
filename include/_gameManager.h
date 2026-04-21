@@ -37,6 +37,8 @@ class _gameManager
         _parallax *menuScreen = new _parallax();
         _parallax *helpScreen = new _parallax();
         _parallax *pauseScreen = new _parallax();
+        _parallax *gleepWin = new _parallax();
+        _parallax *glorpWin = new _parallax();
 
         struct button
         {
