@@ -50,7 +50,7 @@ void level::loadLevel(int levelID)
     case 2:
         background->initPrlx("images/MarmiteBg.png");
         addBlock(0,-0.5,0.5,0.1,0,false);
-        addBlock(0,-0.1,0.3,0.02,0,true);
+        addBlock(0,-0.12,0.3,0.02,0,true);
         break;
     default:
         background->initPrlx("images/MoonBG.png");
@@ -120,7 +120,7 @@ void level::updateLevel()
         }
     }
 
-    float maxSpeed = 0.6f;
+    float maxSpeed = 0.8f;
 
     if (glp->xV > maxSpeed) glp->xV = maxSpeed;
     if (glp->xV < -maxSpeed) glp->xV = -maxSpeed;

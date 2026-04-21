@@ -111,6 +111,7 @@ void _gameManager::update()
     case MAIN_GAME:
         gameLevel->updateLevel();
         if (gameLevel->checkWinner()){
+            soundEngine->playSounds("sounds/winScreen.wav");
             currentState = END_SCREEN;
             currentScreen = ENDPAGE;
         } else if (GetAsyncKeyState('P') & 0x8000)
