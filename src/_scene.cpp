@@ -85,6 +85,8 @@ void _scene::drawScene()
     float wx, wy, wz;
     mouseToWorldOnPlane(mouseX, mouseY, -5.0f, wx, wy, wz);
 
+
+
     manager->mousePos.x = wx;
     manager->mousePos.y = wy;
 
@@ -149,23 +151,23 @@ int _scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 void _scene::setWorldEdges(_gameManager *managerToUpdate)
 {
-    float minX, maxX, minY, maxY, Z;
-    mouseToWorldOnPlane(0, 0, -30, minX, maxY, Z);
-    mouseToWorldOnPlane(dim.x, dim.y, -30, maxX, minY, Z);
+    float minX,maxX,minY,maxY,Z;
+    mouseToWorldOnPlane(0,0,-30,minX,maxY,Z);
+    mouseToWorldOnPlane(dim.x,dim.y,-30,maxX,minY,Z);
 
-    managerToUpdate->worldScale.x = maxX - minX;
-    managerToUpdate->worldScale.y = maxY - minY;
+    managerToUpdate->worldScale.x = maxX-minX;
+    managerToUpdate->worldScale.y = maxY-minY;
 
 }
 vec2 _scene::getScale(float zPlane)
 {
     float minX,maxX,minY,maxY,Z;
-    mouseToWorldOnPlane(0, 0, zPlane, minX, maxY, Z);
-    mouseToWorldOnPlane(dim.x, dim.y, zPlane, maxX, minY, Z);
+    mouseToWorldOnPlane(0,0,zPlane,minX,maxY,Z);
+    mouseToWorldOnPlane(dim.x,dim.y,zPlane,maxX,minY,Z);
 
     vec2 retVal;
-    retVal.x = maxX - minX;
-    retVal.y = maxY - minY;
+    retVal.x = maxX-minX;
+    retVal.y = maxY-minY;
 
     return retVal;
 }
