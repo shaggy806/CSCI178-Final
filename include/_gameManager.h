@@ -57,7 +57,6 @@ class _gameManager
 
         _sounds *soundEngine = new _sounds();
 
-
     protected:
 
     private:
