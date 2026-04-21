@@ -41,15 +41,15 @@ void level::loadLevel(int levelID)
         addBlock(0,-0.5,0.5,0.1,0, false);
         break;
     case 1:
-        background->initPrlx("images/MoonBG.png");
+        background->initPrlx("images/MarsBg.png");
         addBlock(0,-0.5,0.5,0.1,0,false);
         addBlock(-0.25,-0.15,0.13,0.03,0,true);
         addBlock(0.25,-0.15,0.13,0.03,0,true);
         addBlock(0,0.1,0.13,0.03,0,true);
         break;
     case 2:
-        background->initPrlx("images/image.jpg");
-        addBlock(0,-0.5,0.5,0.1,0,true);
+        background->initPrlx("images/MarmiteBg.png");
+        addBlock(0,-0.5,0.5,0.1,0,false);
         addBlock(0,-0.1,0.3,0.02,0,true);
         break;
     default:
