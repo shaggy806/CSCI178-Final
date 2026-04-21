@@ -5,6 +5,7 @@
 #include<glorp.h>
 #include<gleep.h>
 #include<_parallax.h>
+#include<_sounds.h>
 
 struct block {
     float x;
@@ -37,6 +38,8 @@ class level
 
         _parallax *background = new _parallax();
 
+        _sounds *soundEngine = new _sounds();
+
         void loadSprites();
         void loadLevel(int);
         void updateLevel();
@@ -50,6 +53,8 @@ class level
         bool playersCollide();
 
         bool checkWinner();
+        int gleepStepTimer = 0;
+        int glorpStepTimer = 0;
 
     protected:
 

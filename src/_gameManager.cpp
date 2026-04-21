@@ -85,6 +85,11 @@ void _gameManager::update()
         else
             buttons[i].sprite.brightness = 1.0f;
     }
+
+    for (int i = 0; i < buttons.size();i++) {
+        if (mouseClicked && buttonColliding(i)) soundEngine->playSounds("sounds/menuSelect.wav");
+    }
+
     switch (currentState) {
 
     case MAIN_MENU:
