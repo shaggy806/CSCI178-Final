@@ -45,6 +45,7 @@ class _gameManager
             float width;
             float height;
             _quad sprite;
+            int screen;
         };
 
         vector<button> buttons;

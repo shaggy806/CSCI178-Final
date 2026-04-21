@@ -23,9 +23,15 @@ void level::loadLevel(int levelID)
     glp->init();
     glp->yPos = 0.3;
     glp->xPos = 0.3;
+    glp->xV=0;
+    glp->yV=0;
+
     glrp->init();
     glrp->yPos = 0.3;
     glrp->xPos = -0.3;
+    glrp->xV=0;
+    glrp->yV=0;
+
     loadSprites();
     switch (levelID)
     {
@@ -179,6 +185,8 @@ void level::updateLevel()
         }
     }
 
+
+
 }
 
 
@@ -300,5 +308,18 @@ bool level::playersCollide()
             glpLeft < glrpRight &&
             glpTop > glrpBottom &&
             glpBottom < glrpTop);
+}
+bool level::checkWinner()
+{
+
+    if (glp->yPos < -1){
+        winner = 0;
+        return true;
+    }
+    if (glrp->yPos < -1){
+        winner = 1;
+        return true;
+    }
+    return false;
 }
 

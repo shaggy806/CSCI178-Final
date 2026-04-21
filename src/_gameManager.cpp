@@ -22,25 +22,52 @@ void _gameManager::loadSprites()
     helpScreen->initPrlx("images/FinalHelpScreen.png");
     pauseScreen->initPrlx("images/FinalPausedScreen.png");
 
-    buttons.resize(3);
+    buttons.resize(6);
 
     buttons[0].sprite.initQuad("images/ButtonExit.png");
     buttons[0].xPos = -0.35;
     buttons[0].yPos = -0.25;
     buttons[0].width = 0.1;
     buttons[0].height = 0.1;
+    buttons[0].screen = MAIN_MENU;
+
 
     buttons[1].sprite.initQuad("images/ButtonHelp.png");
     buttons[1].xPos = 0.35;
     buttons[1].yPos = -0.25;
     buttons[1].width = 0.1;
     buttons[1].height = 0.1;
+    buttons[1].screen = MAIN_MENU;
+
 
     buttons[2].sprite.initQuad("images/ButtonStart.png");
     buttons[2].xPos = 0;
     buttons[2].yPos = -0.3;
     buttons[2].width = 0.1;
     buttons[2].height = 0.1;
+    buttons[2].screen = MAIN_MENU;
+
+    buttons[3].sprite.initQuad("images/ButtonStart.png");
+    buttons[3].xPos = -0.25;
+    buttons[3].yPos = 0;
+    buttons[3].width = 0.1;
+    buttons[3].height = 0.1;
+    buttons[3].screen = LEVEL_SELECT;
+
+    buttons[4].sprite.initQuad("images/ButtonStart.png");
+    buttons[4].xPos = 0;
+    buttons[4].yPos = 0;
+    buttons[4].width = 0.1;
+    buttons[4].height = 0.1;
+    buttons[4].screen = LEVEL_SELECT;
+
+    buttons[5].sprite.initQuad("images/ButtonStart.png");
+    buttons[5].xPos = 0.25;
+    buttons[5].yPos = 0;
+    buttons[5].width = 0.1;
+    buttons[5].height = 0.1;
+    buttons[5].screen = LEVEL_SELECT;
+
 
     //buttons[3].sprite.initQuad("images/ButtonGoBack.png");
 
@@ -61,19 +88,38 @@ void _gameManager::update()
             exit(0);
         }
         else if (mouseClicked && buttonColliding(2)){
-            gameLevel->loadLevel(1);
-            currentState = MAIN_GAME;
-            currentScreen = GAMEBG;
+            currentState = LEVEL_SELECT;
+            currentScreen = LEVELSELECTPAGE;
         }
         mouseClicked = false;
         break;
 
     case MAIN_GAME:
         gameLevel->updateLevel();
+        if (gameLevel->checkWinner()){
+            currentState = END_SCREEN;
+            currentScreen = ENDPAGE;
+        }
         break;
 
     case LEVEL_SELECT:
-        // TO DO
+        if (mouseClicked && buttonColliding(3))
+        {
+            gameLevel->loadLevel(0);
+            currentState = MAIN_GAME;
+            currentScreen = GAMEBG;
+        }
+        else if (mouseClicked && buttonColliding(4)){
+            gameLevel->loadLevel(1);
+            currentState = MAIN_GAME;
+            currentScreen = GAMEBG;
+        }
+        else if (mouseClicked && buttonColliding(5)){
+            gameLevel->loadLevel(2);
+            currentState = MAIN_GAME;
+            currentScreen = GAMEBG;
+        }
+        mouseClicked = false;
         break;
 
     case PLAYER_SELECT:
@@ -81,7 +127,12 @@ void _gameManager::update()
         break;
 
     case END_SCREEN:
-        // TO DO
+        if (mouseClicked)
+        {
+            mouseClicked = false;
+            currentState = MAIN_MENU;
+            currentScreen = MENUPAGE;
+        }
         break;
 
     case HELP_SCREEN:
@@ -120,7 +171,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case LEVELSELECTPAGE:
-        // TO DO
+        drawButtons();
         break;
 
     case PLAYERSELECTPAGE:
@@ -149,6 +200,7 @@ void _gameManager::drawButtons()
 {
     for (int i = 0; i < buttons.size();i++)
     {
+        if (buttons[i].screen == currentState){
         buttons[i].sprite.pos.z = -5;
         buttons[i].sprite.pos.x = buttons[i].xPos * buttonScale.x;
         buttons[i].sprite.pos.y = buttons[i].yPos * buttonScale.y;
@@ -156,6 +208,7 @@ void _gameManager::drawButtons()
         buttons[i].sprite.scale.y = buttons[i].height * buttonScale.x;
 
         buttons[i].sprite.drawQuad();
+        }
     }
 }
 
