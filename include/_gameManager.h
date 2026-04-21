@@ -6,6 +6,7 @@
 #include<glorp.h>
 #include<gleep.h>
 #include <_parallax.h>
+#include <_sounds.h>
 
 class _gameManager
 {
@@ -50,6 +51,8 @@ class _gameManager
         vector<button> buttons;
 
         bool buttonColliding(int index);
+
+        _sounds *soundEngine = new _sounds();
 
 
     protected:

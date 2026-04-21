@@ -27,7 +27,7 @@ GLint _scene::initGL()
 
     myLight->setLight(GL_LIGHT0);
     myParallax->initPrlx("images/huh2.png");
-    sound->playSounds("sounds/FIREBIRD.mp3");
+    //sound->playSounds("sounds/FIREBIRD.mp3");
     myPlay->playerInit(7,2,"images/glorp.png");
     sh->initShader("shaders/v.vs","shaders/f.fs");
     square->initQuad("images/BlockPlatformUltraWide.png");
