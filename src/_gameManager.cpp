@@ -250,7 +250,7 @@ bool _gameManager::buttonColliding(int index)
     } else{
         buttons[index].sprite.brightness = 1.0;
     }
-    return thing;
+    return (thing && buttons[index].screen == currentState);
 
 }
 

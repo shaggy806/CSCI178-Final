@@ -91,7 +91,8 @@ void level::updateLevel()
     if (isLeftPressed)
     {
         glp->xV -= accel * dt;
-        if (gleepStepTimer == 0 && glp->animation < 2) {
+        if (gleepStepTimer == 0 && glp->animation < 2)
+        {
             soundEngine->playSounds("sounds/gleepWalk.wav");
             gleepStepTimer = 1;
         }
@@ -99,7 +100,8 @@ void level::updateLevel()
     else if (isRightPressed)
     {
         glp->xV += accel * dt;
-        if (gleepStepTimer == 0 && glp->animation < 2) {
+        if (gleepStepTimer == 0 && glp->animation < 2)
+        {
             soundEngine->playSounds("sounds/gleepWalk.wav");
             gleepStepTimer = 1;
         }
@@ -153,7 +155,8 @@ void level::updateLevel()
     if (isAPressed)
     {
         glrp->xV -= accel * dt;
-        if (glorpStepTimer == 0 && glrp->animation < 2) {
+        if (glorpStepTimer == 0 && glrp->animation < 2)
+        {
             soundEngine->playSounds("sounds/glorpWalk.wav");
             glorpStepTimer = 1;
         }
@@ -161,7 +164,8 @@ void level::updateLevel()
     else if (isDPressed)
     {
         glrp->xV += accel * dt;
-        if (glorpStepTimer == 0 && glrp->animation < 2) {
+        if (glorpStepTimer == 0 && glrp->animation < 2)
+        {
             soundEngine->playSounds("sounds/glorpWalk.wav");
             glorpStepTimer = 1;
         }
@@ -201,19 +205,27 @@ void level::updateLevel()
     glp->attackCooldown+=dt;
     glrp->attackCooldown+=dt;
 
-    if (playersCollide()){
-        if (isSPressed && glrp->attackCooldown>1){
-            soundEngine->playSounds("sounds/glorpDash.wav");
+
+    if (isSPressed && glrp->attackCooldown>1)
+    {
+        soundEngine->playSounds("sounds/glorpDash.wav");
+        if (playersCollide())
+        {
             glp->xV = glrp->xV*20;
             glp->yV = 0.6;
-            glrp->attackCooldown = 0;
         }
-        if (isDownPressed && glp->attackCooldown>1){
-            soundEngine->playSounds("sounds/gleepKick.wav");
+        glrp->attackCooldown = 0;
+    }
+    if (isDownPressed && glp->attackCooldown>1)
+    {
+        soundEngine->playSounds("sounds/gleepKick.wav");
+        if (playersCollide())
+        {
             glrp->xV = glp->xV*20;
             glrp->yV = 0.6;
-            glp->attackCooldown = 0;
         }
+        glp->attackCooldown = 0;
+
     }
 
 
@@ -241,16 +253,17 @@ void level::drawLevel()
 
     for (int i = 0; i < blocks.size(); i++)
     {
-        if (blocks[i].visible){
-        sprites[blocks[i].sprite].pos.z = -8;
-        sprites[blocks[i].sprite].pos.x = blocks[i].x * levelScale.x;
-        sprites[blocks[i].sprite].pos.y = blocks[i].y * levelScale.y;
+        if (blocks[i].visible)
+        {
+            sprites[blocks[i].sprite].pos.z = -8;
+            sprites[blocks[i].sprite].pos.x = blocks[i].x * levelScale.x;
+            sprites[blocks[i].sprite].pos.y = blocks[i].y * levelScale.y;
 
-        sprites[blocks[i].sprite].scale.x = blocks[i].scaleX * levelScale.x;
-        sprites[blocks[i].sprite].scale.y = blocks[i].scaleY * levelScale.y;
+            sprites[blocks[i].sprite].scale.x = blocks[i].scaleX * levelScale.x;
+            sprites[blocks[i].sprite].scale.y = blocks[i].scaleY * levelScale.y;
 
 
-        sprites[blocks[i].sprite].drawQuad();
+            sprites[blocks[i].sprite].drawQuad();
         }
     }
 
@@ -343,11 +356,13 @@ bool level::playersCollide()
 bool level::checkWinner()
 {
 
-    if (glp->yPos < -1){
+    if (glp->yPos < -1)
+    {
         winner = 0;
         return true;
     }
-    if (glrp->yPos < -1){
+    if (glrp->yPos < -1)
+    {
         winner = 1;
         return true;
     }
