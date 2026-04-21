@@ -49,6 +49,10 @@ void _gameManager::loadSprites()
 
 void _gameManager::update()
 {
+    for (int i = 0; i < buttons.size();i++) {
+        if (mouseClicked && buttonColliding(i)) soundEngine->playSounds("sounds/menuSelect.wav");
+    }
+
     switch (currentState) {
 
     case MAIN_MENU:
