@@ -6,7 +6,7 @@
 #include<glorp.h>
 #include<gleep.h>
 #include <_parallax.h>
-#inlcude <_sounds.h>
+#include <_sounds.h>
 
 class _gameManager
 {
