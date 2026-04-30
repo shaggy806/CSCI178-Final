@@ -85,8 +85,8 @@ void level::updateLevel()
         glp->xPos-=glp->xV*dt;
         glp->xV =0;
     }
-    float accel = 3.0f;
-    float decel = 4.0f;
+    float accel = 5.0f;
+    float decel = 8.0f;
 
     if (isLeftPressed)
     {
@@ -120,7 +120,7 @@ void level::updateLevel()
         }
     }
 
-    float maxSpeed = 0.8f;
+    float maxSpeed = 0.75f;
 
     if (glp->xV > maxSpeed) glp->xV = maxSpeed;
     if (glp->xV < -maxSpeed) glp->xV = -maxSpeed;
@@ -219,13 +219,13 @@ void level::updateLevel()
     if (isDownPressed && glp->attackCooldown>1)
     {
         soundEngine->playSounds("sounds/gleepKick.wav");
+
         if (playersCollide())
         {
             glrp->xV = glp->xV*20;
             glrp->yV = 0.6;
         }
         glp->attackCooldown = 0;
-
     }
 
 

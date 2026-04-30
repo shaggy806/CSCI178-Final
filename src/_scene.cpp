@@ -1,6 +1,7 @@
 #include "_scene.h"
 
 auto lastTime = chrono::steady_clock::now();
+
 _scene::_scene()
 {
     //ctor
