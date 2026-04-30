@@ -20,7 +20,7 @@ void _gameManager::loadSprites()
 {
     menuScreen->initPrlx("images/FinalMenuScreen.png");
     helpScreen->initPrlx("images/FinalHelpScreen.png");
-    pauseScreen->initPrlx("images/FinalPausedScreen.png");
+    pausePopup->initQuad("images/FinalPausePopup.png");
     gleepWin->initPrlx("images/GleepWinsGlorpLoses.png");
     glorpWin->initPrlx("images/GlorpWinsGleepLoses.png");
 
@@ -216,7 +216,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case PAUSEPAGE:
-        pauseScreen->drawBackground(worldScale.x,worldScale.y);
+        pausePopup->drawQuad();
         break;
 
     default:

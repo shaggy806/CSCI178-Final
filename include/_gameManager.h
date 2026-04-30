@@ -37,7 +37,7 @@ class _gameManager
 
         _parallax *menuScreen = new _parallax();
         _parallax *helpScreen = new _parallax();
-        _parallax *pauseScreen = new _parallax();
+        _quad *pausePopup = new _quad(0, 0, 0, 0, 0, -8, 1.0, 0.7, 1.0, 1);
         _parallax *gleepWin = new _parallax();
         _parallax *glorpWin = new _parallax();
 

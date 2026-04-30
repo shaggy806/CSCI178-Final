@@ -82,11 +82,8 @@ void _scene::drawScene()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 
-
     float wx, wy, wz;
     mouseToWorldOnPlane(mouseX, mouseY, -5.0f, wx, wy, wz);
-
-
 
     manager->mousePos.x = wx;
     manager->mousePos.y = wy;

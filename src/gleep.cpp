@@ -6,7 +6,7 @@ gleep::gleep()
     width = 0.03;
     height = 0.05;
     xFrames = 12;
-    yFrames = 2;
+    yFrames = 3;
     animation = 0;
     prevAnim = frame = 0;
     fps = 30;
@@ -20,7 +20,7 @@ gleep::~gleep()
 
 void gleep::init()
 {
-    sprite->initQuad("images/Gleep.png");
+    sprite->initQuad("images/GleepNew.png");
 
     initAnimations();
 
@@ -33,6 +33,8 @@ void gleep::initAnimations()
     animations.push_back({20});
     animations.push_back({0});
     animations.push_back({23});
+    animations.push_back({24});
+    animations.push_back({25});
 }
 
 void gleep::updatePlayer(float dt)

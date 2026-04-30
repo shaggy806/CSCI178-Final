@@ -8,6 +8,7 @@ class _quad
 {
     public:
         _quad();
+        _quad(int, int, int, int, int, int, float, float, float, int);
         virtual ~_quad();
 
         vec3 rot;
