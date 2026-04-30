@@ -31,6 +31,8 @@ class gleep
         void updatePlayer(float dt);
         void displayPlayer();
 
+        bool isKicking = false;
+
     protected:
 
     private:

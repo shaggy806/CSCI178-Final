@@ -201,6 +201,8 @@ void level::updateLevel()
     glrp->yV -= 1.5 * dt;
 
     glp->attackCooldown+=dt;
+    if (glp->attackCooldown > 0.25) glp->isKicking = false;
+
     glrp->attackCooldown+=dt;
 
     if (isSPressed && glrp->attackCooldown>1)
@@ -216,6 +218,8 @@ void level::updateLevel()
     if (isDownPressed && glp->attackCooldown>1)
     {
         soundEngine->playSounds("sounds/gleepKick.wav");
+
+        glp->isKicking = true;
 
         if (playersCollide())
         {

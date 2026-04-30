@@ -43,6 +43,12 @@ void gleep::updatePlayer(float dt)
 
     prevAnim = animation;
 
+    if (isKicking)
+    {
+        if (animation % 2 == 1 || animation == 6) animation = 6;
+        else if (animation % 2 == 0 || animation == 7) animation = 7;
+    }
+
     bool onGround = fabs(yV) < 0.1f;
     bool movingX = fabs(xV) > 0.02f;
 
