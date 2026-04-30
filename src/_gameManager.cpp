@@ -113,6 +113,7 @@ void _gameManager::update()
         if (gameLevel->checkWinner()){
             currentState = END_SCREEN;
             currentScreen = ENDPAGE;
+            soundEngine->playSounds("sounds/winScreen.wav");
         } else if (GetAsyncKeyState('P') & 0x8000)
         {
             currentState = PAUSED;
