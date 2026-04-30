@@ -125,8 +125,8 @@ void level::updateLevel()
     if (glp->xV > maxSpeed) glp->xV = maxSpeed;
     if (glp->xV < -maxSpeed) glp->xV = -maxSpeed;
 
-
     glp->yPos+=glp->yV*dt;
+
     if (gleepCollide() && glp->yV <0 && isUpPressed)
     {
         soundEngine->playSounds("sounds/gleepJump.wav");
@@ -149,8 +149,6 @@ void level::updateLevel()
         glrp->xPos -= glrp->xV * dt;
         glrp->xV = 0;
     }
-
-
 
     if (isAPressed)
     {
@@ -205,7 +203,6 @@ void level::updateLevel()
     glp->attackCooldown+=dt;
     glrp->attackCooldown+=dt;
 
-
     if (isSPressed && glrp->attackCooldown>1)
     {
         soundEngine->playSounds("sounds/glorpDash.wav");
@@ -227,9 +224,6 @@ void level::updateLevel()
         }
         glp->attackCooldown = 0;
     }
-
-
-
 }
 
 
