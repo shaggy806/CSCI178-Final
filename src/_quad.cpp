@@ -5,8 +5,22 @@ _quad::_quad()
     rot.x = rot.y = rot.z = 0;
     pos.x = pos.y = 0;
     pos.z = -8;
-    scale.x = scale.y = scale.z =1;
+    scale.x = scale.y = scale.z = 1.0;
     brightness = 1;
+}
+
+_quad::_quad(int rx, int ry, int rz, int px, int py, int pz, float sx, float sy, float sz, int b)
+{
+    rot.x = rx;
+    rot.y = ry;
+    rot.z = rz;
+    pos.x = px;
+    pos.y = py;
+    pos.z = pz;
+    scale.x = sx;
+    scale.y = sy;
+    scale.z = sz;
+    brightness = b;
 }
 
 _quad::~_quad()

@@ -20,7 +20,7 @@ void _gameManager::loadSprites()
 {
     menuScreen->initPrlx("images/FinalMenuScreen.png");
     helpScreen->initPrlx("images/FinalHelpScreen.png");
-    pauseScreen->initPrlx("images/FinalPausedScreen.png");
+    pausePopup->initQuad("images/FinalPausePopup.png");
     gleepWin->initPrlx("images/GleepWinsGlorpLoses.png");
     glorpWin->initPrlx("images/GlorpWinsGleepLoses.png");
 
@@ -111,6 +111,7 @@ void _gameManager::update()
     case MAIN_GAME:
         gameLevel->updateLevel();
         if (gameLevel->checkWinner()){
+            soundEngine->playSounds("sounds/winScreen.wav");
             currentState = END_SCREEN;
             currentScreen = ENDPAGE;
             soundEngine->playSounds("sounds/winScreen.wav");
@@ -216,7 +217,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case PAUSEPAGE:
-        pauseScreen->drawBackground(worldScale.x,worldScale.y);
+        pausePopup->drawQuad();
         break;
 
     default:
@@ -251,7 +252,7 @@ bool _gameManager::buttonColliding(int index)
     } else{
         buttons[index].sprite.brightness = 1.0;
     }
-    return thing;
+    return (thing && buttons[index].screen == currentState);
 
 }
 
