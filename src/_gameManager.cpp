@@ -217,6 +217,7 @@ void _gameManager::drawWorld(float, float)
         break;
 
     case PAUSEPAGE:
+        gameLevel->drawLevel();
         pausePopup->drawQuad();
         break;
 
