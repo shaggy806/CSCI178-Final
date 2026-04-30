@@ -29,11 +29,7 @@ GLint _scene::initGL()
     myParallax->initPrlx("images/huh2.png");
     //sound->playSounds("sounds/FIREBIRD.mp3");
     myPlay->playerInit(7,2,"images/glorp.png");
-    sh->initShader("shaders/v.vs","shaders/f.fs");
     square->initQuad("images/BlockPlatformUltraWide.png");
-    glUseProgram(sh->program);
-    glUseProgram(0);
-
 
     manager->initialize();
     setWorldEdges(manager);
