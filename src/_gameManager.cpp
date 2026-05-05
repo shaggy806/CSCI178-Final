@@ -11,6 +11,15 @@ _gameManager::~_gameManager()
     //dtor
 }
 
+void _gameManager::reloadGLResources()
+{
+    loadSprites();
+
+    if (gameLevel)
+    {
+        gameLevel->reloadGLResources();
+    }
+}
 void _gameManager::initialize()
 {
     loadSprites();
@@ -111,9 +120,12 @@ void _gameManager::update()
     case MAIN_GAME:
         gameLevel->updateLevel();
         if (gameLevel->checkWinner()){
-            soundEngine->playSounds("sounds/winScreen.wav");
+            soundEngine->pauseMusic("sounds/level1.mp3");
+            soundEngine->pauseMusic("sounds/level2.mp3");
+            soundEngine->pauseMusic("sounds/level3.mp3");
             currentState = END_SCREEN;
             currentScreen = ENDPAGE;
+            soundEngine->playSounds("sounds/winScreen.wav");
         } else if (GetAsyncKeyState('P') & 0x8000)
         {
             currentState = PAUSED;
@@ -125,19 +137,25 @@ void _gameManager::update()
     case LEVEL_SELECT:
         if (mouseClicked && buttonColliding(3))
         {
+            soundEngine->pauseMusic("sounds/main_menu.mp3");
             gameLevel->loadLevel(0);
             currentState = MAIN_GAME;
             currentScreen = GAMEBG;
+            soundEngine->playMusic("sounds/level1.mp3");
         }
         else if (mouseClicked && buttonColliding(4)){
+            soundEngine->pauseMusic("sounds/main_menu.mp3");
             gameLevel->loadLevel(1);
             currentState = MAIN_GAME;
             currentScreen = GAMEBG;
+            soundEngine->playMusic("sounds/level2.mp3");
         }
         else if (mouseClicked && buttonColliding(5)){
+            soundEngine->pauseMusic("sounds/main_menu.mp3");
             gameLevel->loadLevel(2);
             currentState = MAIN_GAME;
             currentScreen = GAMEBG;
+            soundEngine->playMusic("sounds/level3.mp3");
         }
         mouseClicked = false;
         break;
@@ -149,6 +167,7 @@ void _gameManager::update()
     case END_SCREEN:
         if (mouseClicked)
         {
+            soundEngine->playMusic("sounds/main_menu.mp3");
             mouseClicked = false;
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
@@ -179,6 +198,7 @@ void _gameManager::update()
             mouseClicked = false;
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
+            soundEngine->playMusic("sounds/main_menu.mp3");
         }
         break;
 

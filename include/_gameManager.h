@@ -54,6 +54,7 @@ class _gameManager
         vector<button> buttons;
 
         bool buttonColliding(int index);
+        void reloadGLResources();
 
         _sounds *soundEngine = new _sounds();
 

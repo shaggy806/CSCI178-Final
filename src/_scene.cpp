@@ -27,16 +27,8 @@ GLint _scene::initGL()
     //glEnable(GL_COLOR_MATERIAL);
 
     myLight->setLight(GL_LIGHT0);
-    myParallax->initPrlx("images/huh2.png");
-    //sound->playSounds("sounds/FIREBIRD.mp3");
-    myPlay->playerInit(7,2,"images/glorp.png");
-    square->initQuad("images/BlockPlatformUltraWide.png");
+    manager->reloadGLResources();
 
-    manager->initialize();
-    setWorldEdges(manager);
-    manager->buttonScale = getScale(-5);
-    manager->gameLevel->worldScale = manager->worldScale;
-    manager->gameLevel->levelScale = getScale(-8);
     return true;
 }
 
@@ -61,9 +53,9 @@ void _scene::reSize(GLint width, GLint height)
 
     setWorldEdges(manager);
     manager->buttonScale = getScale(-5);
-
     manager->gameLevel->worldScale = manager->worldScale;
     manager->gameLevel->levelScale = getScale(-8);
+
 }
 
 void _scene::drawScene()
@@ -197,3 +189,5 @@ vec2 _scene::getScale(float zPlane)
     myPlay->movePlay();
     myPlay->displayPlayer();
 */
+
+// Comment added 4.21.26 at 4:38pm

@@ -1,11 +1,10 @@
 #ifndef _SOUNDS_H
 #define _SOUNDS_H
 
-#include<_common.h>
-#include<SNDS/irrKlang.h>
+#include <_common.h>
+#include <SNDS/irrKlang.h>
 
 using namespace irrklang;
-
 
 class _sounds
 {
@@ -15,14 +14,15 @@ class _sounds
 
         void playMusic(char*);
         void playSounds(char*);
-        void pauseSound(char*);
+        void pauseMusic(bool); // Changed to take a boolean for pause/unpause
         void initSounds();
 
-        ISoundEngine *sndEng=createIrrKlangDevice();
+        ISoundEngine *sndEng = createIrrKlangDevice();
 
     protected:
 
     private:
+        ISound* currentMusic = nullptr; // Add this pointer to track the music
 };
 
 #endif // _SOUNDS_H
