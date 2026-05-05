@@ -26,6 +26,8 @@ class level
         vec2 levelScale;
         vec2 mousePos;
         float dt;
+        int currentLevelID =  -1;
+        bool loaded = false;
 
         vector<block> blocks;
         vector<_quad> sprites;
@@ -44,6 +46,7 @@ class level
         void loadLevel(int);
         void updateLevel();
         void drawLevel();
+        void reloadGLResources();
 
         void addBlock(float,float,float,float,int,bool);
 

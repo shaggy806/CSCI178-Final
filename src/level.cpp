@@ -20,6 +20,8 @@ void level::loadSprites()
 
 void level::loadLevel(int levelID)
 {
+    currentLevelID = levelID;
+    loaded = true;
     blocks.clear();
     glp->init();
     glp->yPos = 0.3;
@@ -241,8 +243,34 @@ void level::addBlock(float x, float y, float w, float h, int sprite, bool visibl
     newBlock.sprite = sprite;
     newBlock.visible = visible;
     blocks.push_back(newBlock);
+
 }
 
+void level::reloadGLResources()
+{
+    if (!loaded) return;
+
+    loadSprites();
+
+    glp->sprite->initQuad("images/GleepNew.png");
+    glrp->sprite->initQuad("images/cleanGlorp.png");
+
+    switch (currentLevelID)
+    {
+    case 0:
+        background->initPrlx("images/MoonBG.png");
+        break;
+    case 1:
+        background->initPrlx("images/MarsBg.png");
+        break;
+    case 2:
+        background->initPrlx("images/MarmiteBg.png");
+        break;
+    default:
+        background->initPrlx("images/MoonBG.png");
+        break;
+    }
+}
 
 void level::drawLevel()
 {

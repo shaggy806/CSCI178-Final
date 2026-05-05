@@ -32,6 +32,7 @@ class _scene
 
         static float deltaTime;
 
+        bool inited;
         _sounds *sound = new _sounds();
         _lightSettings *myLight = new _lightSettings();
         _parallax *myParallax = new _parallax();

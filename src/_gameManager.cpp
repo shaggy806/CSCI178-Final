@@ -11,6 +11,15 @@ _gameManager::~_gameManager()
     //dtor
 }
 
+void _gameManager::reloadGLResources()
+{
+    loadSprites();
+
+    if (gameLevel)
+    {
+        gameLevel->reloadGLResources();
+    }
+}
 void _gameManager::initialize()
 {
     loadSprites();
