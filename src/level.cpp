@@ -81,7 +81,7 @@ void level::updateLevel()
     bool isLeftPressed = GetAsyncKeyState(VK_LEFT) & 0x8000;
     bool isRightPressed = GetAsyncKeyState(VK_RIGHT) & 0x8000;
 
-    float maxSpeed = 0.75f;
+    float maxSpeed = 0.5f;
 
     glp->xPos+=glp->xV*dt;
     if (gleepCollide())
@@ -200,7 +200,7 @@ void level::updateLevel()
 
     glrp->attackCooldown+=dt;
 
-    if (isSPressed && glrp->attackCooldown>1)
+    if (isSPressed && glrp->attackCooldown>1 && glrp->xV != 0)
     {
         glrp->xV *= 2;
         soundEngine->playSounds("sounds/glorpDash.wav");
