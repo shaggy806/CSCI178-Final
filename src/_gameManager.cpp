@@ -13,7 +13,6 @@ _gameManager::~_gameManager()
 
 void _gameManager::initialize()
 {
-    currentState = MAIN_MENU;
     loadSprites();
 }
 void _gameManager::loadSprites()
@@ -177,10 +176,10 @@ void _gameManager::update()
     case LANDING:
         if (mouseClicked)
         {
+            mouseClicked = false;
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
         }
-        mouseClicked = false;
         break;
 
     default:

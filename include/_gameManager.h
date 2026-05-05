@@ -21,7 +21,7 @@ class _gameManager
         vec2 buttonScale;
         vec2 mousePos;
 
-        bool mouseClicked;
+        bool mouseClicked = false;
 
         int currentState;
         int currentScreen;

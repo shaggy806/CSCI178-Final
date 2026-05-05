@@ -9,8 +9,8 @@ Green Alien Gauntlet is a platform fighting game in which you play as two green 
 Jacob Tapia (Lead Architect & Art Director)
 Developing structure of game manager system; Designing graphics; 
 
-Tobiah Ens (Sound Designer, & Head of Quality Assurance)
+Timothy Cromwell (Sound Designer & Quality Assurance)
 Debugging of game manager system; Creation of sounds; Polishing of Gameplay and Balance
 
-Timothy Cromwell (Lead Programmer & Game Physics)
+Tobiah Ens (Lead Programmer & Game Physics)
 Implementation of game manager system; Character physics/movement/collision; Stage Design;
