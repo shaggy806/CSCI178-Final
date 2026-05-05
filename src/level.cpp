@@ -202,11 +202,12 @@ void level::updateLevel()
 
     if (isSPressed && glrp->attackCooldown>1)
     {
+        glrp->xV *= 2;
         soundEngine->playSounds("sounds/glorpDash.wav");
         if (playersCollide())
         {
-            glp->xV = glrp->xV*2.5;
-            glp->yV = 0.6;
+            glp->xV = glrp->xV*3;
+            glp->yV *= -0.25;
         }
         glrp->attackCooldown = 0;
     }
