@@ -33,8 +33,8 @@ void gleep::initAnimations()
     animations.push_back({20});
     animations.push_back({0});
     animations.push_back({23});
-    animations.push_back({24});
     animations.push_back({25});
+    animations.push_back({24});
 }
 
 void gleep::updatePlayer(float dt)
@@ -42,6 +42,12 @@ void gleep::updatePlayer(float dt)
     timer += dt;
 
     prevAnim = animation;
+
+    if (isKicking)
+    {
+        if (animation % 2 == 1 || animation == 7) animation = 7;
+        else if (animation % 2 == 0 || animation == 6) animation = 6;
+    }
 
     bool onGround = fabs(yV) < 0.1f;
     bool movingX = fabs(xV) > 0.02f;

@@ -2,8 +2,8 @@
 
 _gameManager::_gameManager()
 {
-    currentState = MAIN_MENU;
-    currentScreen = MENUPAGE;
+    currentState = LANDING;
+    currentScreen = LANDINGPAGE;
 }
 
 _gameManager::~_gameManager()
@@ -13,11 +13,11 @@ _gameManager::~_gameManager()
 
 void _gameManager::initialize()
 {
-    currentState = MAIN_MENU;
     loadSprites();
 }
 void _gameManager::loadSprites()
 {
+    landingScreen->initPrlx("images/FinalLandingScreen.png");
     menuScreen->initPrlx("images/FinalMenuScreen.png");
     helpScreen->initPrlx("images/FinalHelpScreen.png");
     pausePopup->initQuad("images/FinalPausePopup.png");
@@ -174,6 +174,15 @@ void _gameManager::update()
         }
         break;
 
+    case LANDING:
+        if (mouseClicked)
+        {
+            mouseClicked = false;
+            currentState = MAIN_MENU;
+            currentScreen = MENUPAGE;
+        }
+        break;
+
     default:
         break;
     }
@@ -219,6 +228,10 @@ void _gameManager::drawWorld(float, float)
     case PAUSEPAGE:
         gameLevel->drawLevel();
         pausePopup->drawQuad();
+        break;
+
+    case LANDINGPAGE:
+        landingScreen->drawBackground(worldScale.x,worldScale.y);
         break;
 
     default:
