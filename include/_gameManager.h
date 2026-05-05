@@ -14,8 +14,8 @@ class _gameManager
         _gameManager();
         virtual ~_gameManager();
         bool paused;
-        enum {MAIN_MENU, LEVEL_SELECT, PLAYER_SELECT, MAIN_GAME, END_SCREEN, HELP_SCREEN, PAUSED};
-        enum {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE};
+        enum {MAIN_MENU, LEVEL_SELECT, PLAYER_SELECT, MAIN_GAME, END_SCREEN, HELP_SCREEN, PAUSED, LANDING};
+        enum {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE, LANDINGPAGE};
 
         vec2 worldScale;
         vec2 buttonScale;
@@ -34,6 +34,7 @@ class _gameManager
         void drawWorld(float, float);
         void drawButtons();
 
+        _parallax *landingScreen = new _parallax();
         _parallax *menuScreen = new _parallax();
         _parallax *helpScreen = new _parallax();
         _quad *pausePopup = new _quad(0, 0, 0, 0, 0, -8, 3.0, 2.0, 1.0, 1);
