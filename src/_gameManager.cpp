@@ -33,7 +33,7 @@ void _gameManager::loadSprites()
     gleepWin->initPrlx("images/GleepWinsGlorpLoses.png");
     glorpWin->initPrlx("images/GlorpWinsGleepLoses.png");
 
-    buttons.resize(6);
+    buttons.resize(9);
 
     buttons[0].sprite.initQuad("images/ButtonExit.png");
     buttons[0].xPos = -0.35;
@@ -79,6 +79,26 @@ void _gameManager::loadSprites()
     buttons[5].height = 0.1;
     buttons[5].screen = LEVEL_SELECT;
 
+    buttons[6].sprite.initQuad("images/ButtonCreditsFromPause.png");
+    buttons[6].xPos = 0.15;
+    buttons[6].yPos = -0.05;
+    buttons[6].width = 0.06;
+    buttons[6].height = 0.06;
+    buttons[6].screen = PAUSED;
+
+    buttons[7].sprite.initQuad("images/ButtonMenuFromPause.png");
+    buttons[7].xPos = 0;
+    buttons[7].yPos = -0.1;
+    buttons[7].width = 0.06;
+    buttons[7].height = 0.06;
+    buttons[7].screen = PAUSED;
+
+    buttons[8].sprite.initQuad("images/ButtonHelp.png");
+    buttons[8].xPos = -0.15;
+    buttons[8].yPos = -0.05;
+    buttons[8].width = 0.06;
+    buttons[8].height = 0.06;
+    buttons[8].screen = PAUSED;
 
     //buttons[3].sprite.initQuad("images/ButtonGoBack.png");
 
@@ -247,6 +267,7 @@ void _gameManager::drawWorld(float, float)
     case PAUSEPAGE:
         gameLevel->drawLevel();
         pausePopup->drawQuad();
+        drawButtons();
         break;
 
     case LANDINGPAGE:
