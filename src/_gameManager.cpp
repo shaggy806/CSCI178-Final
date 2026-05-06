@@ -32,8 +32,9 @@ void _gameManager::loadSprites()
     pausePopup->initQuad("images/FinalPausePopup.png");
     gleepWin->initPrlx("images/GleepWinsGlorpLoses.png");
     glorpWin->initPrlx("images/GlorpWinsGleepLoses.png");
+    creditsScreen->initPrlx("images/FinalCreditsScreen.png");
 
-    buttons.resize(9);
+    buttons.resize(11);
 
     buttons[0].sprite.initQuad("images/ButtonExit.png");
     buttons[0].xPos = -0.35;
@@ -79,14 +80,14 @@ void _gameManager::loadSprites()
     buttons[5].height = 0.1;
     buttons[5].screen = LEVEL_SELECT;
 
-    buttons[6].sprite.initQuad("images/ButtonCreditsFromPause.png");
+    buttons[6].sprite.initQuad("images/ButtonCredits.png");
     buttons[6].xPos = 0.15;
     buttons[6].yPos = -0.05;
     buttons[6].width = 0.06;
     buttons[6].height = 0.06;
     buttons[6].screen = PAUSED;
 
-    buttons[7].sprite.initQuad("images/ButtonMenuFromPause.png");
+    buttons[7].sprite.initQuad("images/ButtonMenu.png");
     buttons[7].xPos = 0;
     buttons[7].yPos = -0.1;
     buttons[7].width = 0.06;
@@ -100,8 +101,19 @@ void _gameManager::loadSprites()
     buttons[8].height = 0.06;
     buttons[8].screen = PAUSED;
 
-    //buttons[3].sprite.initQuad("images/ButtonGoBack.png");
+    buttons[9].sprite.initQuad("images/ButtonMenu.png");
+    buttons[9].xPos = 0;
+    buttons[9].yPos = -0.35;
+    buttons[9].width = 0.06;
+    buttons[9].height = 0.06;
+    buttons[9].screen = LEVEL_SELECT;
 
+    buttons[10].sprite.initQuad("images/ButtonCredits.png");
+    buttons[10].xPos = -0.355;
+    buttons[10].yPos = 0.35;
+    buttons[10].width = 0.035;
+    buttons[10].height = 0.035;
+    buttons[10].screen = MAIN_MENU;
 }
 
 
@@ -133,6 +145,10 @@ void _gameManager::update()
         else if (mouseClicked && buttonColliding(2)){
             currentState = LEVEL_SELECT;
             currentScreen = LEVELSELECTPAGE;
+        }
+        else if (mouseClicked && buttonColliding(10)){
+            currentState = CREDITS_MAIN_MENU;
+            currentScreen = CREDITSPAGE;
         }
         mouseClicked = false;
         break;
@@ -177,11 +193,11 @@ void _gameManager::update()
             currentScreen = GAMEBG;
             soundEngine->playMusic("sounds/level3.mp3");
         }
+        else if (mouseClicked && buttonColliding(9)){
+            currentState = MAIN_MENU;
+            currentScreen = MENUPAGE;
+        }
         mouseClicked = false;
-        break;
-
-    case PLAYER_SELECT:
-        // TO DO
         break;
 
     case END_SCREEN:
@@ -197,19 +213,44 @@ void _gameManager::update()
     case HELP_SCREEN:
         if (mouseClicked)
         {
-            mouseClicked = false;
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
         }
+
+        mouseClicked = false;
+        break;
+
+    case HELP_SCREEN_PAUSED:
+        if (mouseClicked)
+        {
+            currentState = PAUSED;
+            currentScreen = PAUSEPAGE;
+        }
+
+        mouseClicked = false;
         break;
 
     case PAUSED:
-        if (mouseClicked)
+        if (mouseClicked && !buttonColliding(6) && !buttonColliding(7) && !buttonColliding(8))
         {
-            mouseClicked = false;
             currentState = MAIN_GAME;
             currentScreen = GAMEBG;
         }
+        if (mouseClicked && buttonColliding(6))
+        {
+            currentState = CREDITS_PAUSE;
+            currentScreen = CREDITSPAGE;
+        }
+        else if (mouseClicked && buttonColliding(7)){
+            currentState = MAIN_MENU;
+            currentScreen = MENUPAGE;
+        }
+        else if (mouseClicked && buttonColliding(8)){
+            currentState = HELP_SCREEN_PAUSED;
+            currentScreen = HELPPAGE;
+        }
+        mouseClicked = false;
+
         break;
 
     case LANDING:
@@ -220,6 +261,24 @@ void _gameManager::update()
             currentScreen = MENUPAGE;
             soundEngine->playMusic("sounds/main_menu.mp3");
         }
+        break;
+
+    case CREDITS_PAUSE:
+        if (mouseClicked)
+        {
+            mouseClicked = false;
+            currentState = PAUSED;
+            currentScreen = PAUSEPAGE;
+        }
+
+    case CREDITS_MAIN_MENU:
+        if (mouseClicked)
+        {
+            mouseClicked = false;
+            currentState = MAIN_MENU;
+            currentScreen = MENUPAGE;
+        }
+
         break;
 
     default:
@@ -248,10 +307,6 @@ void _gameManager::drawWorld(float, float)
         drawButtons();
         break;
 
-    case PLAYERSELECTPAGE:
-        // TO DO
-        break;
-
     case ENDPAGE:
         if (gameLevel->winner == 0){
             glorpWin->drawBackground(worldScale.x,worldScale.y);
@@ -272,6 +327,10 @@ void _gameManager::drawWorld(float, float)
 
     case LANDINGPAGE:
         landingScreen->drawBackground(worldScale.x,worldScale.y);
+        break;
+
+    case CREDITSPAGE:
+        creditsScreen->drawBackground(worldScale.x,worldScale.y);
         break;
 
     default:

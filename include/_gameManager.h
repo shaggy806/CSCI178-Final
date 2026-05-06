@@ -14,8 +14,8 @@ class _gameManager
         _gameManager();
         virtual ~_gameManager();
         bool paused;
-        enum {MAIN_MENU, LEVEL_SELECT, PLAYER_SELECT, MAIN_GAME, END_SCREEN, HELP_SCREEN, PAUSED, LANDING};
-        enum {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE, LANDINGPAGE};
+        enum {MAIN_MENU, LEVEL_SELECT, PLAYER_SELECT, MAIN_GAME, END_SCREEN, HELP_SCREEN, PAUSED, LANDING, CREDITS_PAUSE, HELP_SCREEN_PAUSED, CREDITS_MAIN_MENU};
+        enum {MENUPAGE, LEVELSELECTPAGE, PLAYERSELECTPAGE, GAMEBG, ENDPAGE, HELPPAGE, PAUSEPAGE, LANDINGPAGE, CREDITSPAGE};
 
         vec2 worldScale;
         vec2 buttonScale;
@@ -40,6 +40,7 @@ class _gameManager
         _quad *pausePopup = new _quad(0, 0, 0, 0, 0, -8, 3.0, 2.0, 1.0, 1);
         _parallax *gleepWin = new _parallax();
         _parallax *glorpWin = new _parallax();
+        _parallax *creditsScreen = new _parallax();
 
         struct button
         {
