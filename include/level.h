@@ -6,6 +6,7 @@
 #include<gleep.h>
 #include<_parallax.h>
 #include<_sounds.h>
+#include<particles.h>
 
 struct block {
     float x;
@@ -37,6 +38,7 @@ class level
 
         int winner = -1;
 
+        particles *particleSystem = new particles();
 
         _parallax *background = new _parallax();
 

@@ -61,7 +61,7 @@ void level::loadLevel(int levelID)
         addBlock(0,-0.5,0.5,0.1,0,true);
         break;
     }
-
+    particleSystem->load();
 }
 void level::updateLevel()
 {
@@ -230,6 +230,9 @@ void level::updateLevel()
         }
         glp->attackCooldown = 0;
     }
+    particleSystem->addParticle(glp->xPos,glp->yPos-0.049,0.3,0.3,0,0.002,1,1,1,1);
+
+    particleSystem->updateParticles(dt);
 }
 
 
@@ -251,6 +254,7 @@ void level::reloadGLResources()
     if (!loaded) return;
 
     loadSprites();
+    particleSystem->reload();
 
     glp->sprite->initQuad("images/GleepNew.png");
     glrp->sprite->initQuad("images/cleanGlorp.png");
@@ -309,6 +313,8 @@ void level::drawLevel()
     glrp->updatePlayer(dt);
     glrp->displayPlayer();
 
+
+    particleSystem->drawParticles();
 }
 
 bool level::gleepCollide()

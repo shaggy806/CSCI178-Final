@@ -18,6 +18,7 @@ class _quad
 
         void initQuad(char *);
         void drawQuad();
+        void drawQuad(float r, float g, float b, float a);
         void updateQuad();
 
         GLuint vboPos, vboTex;
