@@ -194,6 +194,7 @@ void _gameManager::update()
             soundEngine->playMusic("sounds/level3.mp3");
         }
         else if (mouseClicked && buttonColliding(9)){
+            soundEngine->playMusic("sounds/main_menu.mp3");
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
         }
@@ -242,6 +243,7 @@ void _gameManager::update()
             currentScreen = CREDITSPAGE;
         }
         else if (mouseClicked && buttonColliding(7)){
+            soundEngine->playMusic("sounds/main_menu.mp3");
             currentState = MAIN_MENU;
             currentScreen = MENUPAGE;
         }

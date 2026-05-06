@@ -20,7 +20,7 @@ gleep::~gleep()
 
 void gleep::init()
 {
-    sprite->initQuad("images/GleepNew (2).png");
+    sprite->initQuad("images/gleep.png");
 
     initAnimations();
 
