@@ -21,6 +21,11 @@ GLint _scene::initGL()
     glEnable(GL_DEPTH_TEST);        // Enable depth test
     glDepthFunc(GL_LEQUAL);         // True for less or equal
 
+    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_MODULATE);
+
     glEnable(GL_LIGHTING);
     glEnable(GL_LIGHT0);
 
@@ -55,6 +60,7 @@ void _scene::reSize(GLint width, GLint height)
     manager->buttonScale = getScale(-5);
     manager->gameLevel->worldScale = manager->worldScale;
     manager->gameLevel->levelScale = getScale(-8);
+    manager->gameLevel->particleSystem->scale = getScale(-3);
 
 }
 
