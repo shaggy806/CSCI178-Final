@@ -312,7 +312,7 @@ void level::reloadGLResources()
     loadSprites();
     particleSystem->reload();
 
-    glp->sprite->initQuad("images/GleepNew.png");
+    glp->sprite->initQuad("images/GleepNew(2).png");
     glrp->sprite->initQuad("images/cleanGlorp.png");
 
     switch (currentLevelID)
