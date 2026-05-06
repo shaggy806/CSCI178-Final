@@ -25,6 +25,7 @@ void particles::updateParticles(float dt)
     for (int i = 0; i < parts.size(); i++){
         parts[i].x += parts[i].xV*dt;
         parts[i].y += parts[i].yV*dt;
+        parts[i].yV -= 1*dt;
         parts[i].livedTime += dt;
         if (parts[i].livedTime > parts[i].lifetime){
             parts.erase(parts.begin()+i);
@@ -36,13 +37,13 @@ void particles::updateParticles(float dt)
 void particles::drawParticles()
 {
     for (int i = 0; i < parts.size(); i++){
-        image->pos.z = -3;
+        image->pos.z = -9;
         image->pos.x =  parts[i].x * scale.x;
         image->pos.y =  parts[i].y * scale.y;
 
         image->scale.x = parts[i].scale * scale.x;
         image->scale.y = parts[i].scale * scale.x;
-        image->rot.x = parts[i].rotation;
+        image->rot.z = parts[i].rotation;
 
         image->drawQuad(parts[i].r,parts[i].g,parts[i].b,(parts[i].lifetime-parts[i].livedTime)/parts[i].lifetime);
     }

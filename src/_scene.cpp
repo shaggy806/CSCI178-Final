@@ -60,7 +60,7 @@ void _scene::reSize(GLint width, GLint height)
     manager->buttonScale = getScale(-5);
     manager->gameLevel->worldScale = manager->worldScale;
     manager->gameLevel->levelScale = getScale(-8);
-    manager->gameLevel->particleSystem->scale = getScale(-3);
+    manager->gameLevel->particleSystem->scale = getScale(-9);
 
 }
 

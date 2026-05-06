@@ -3,6 +3,7 @@
 level::level()
 {
     //ctor
+
 }
 
 level::~level()
@@ -20,6 +21,8 @@ void level::loadSprites()
 
 void level::loadLevel(int levelID)
 {
+    gleepSmoke = 0;
+    glorpSmoke = 0;
     currentLevelID = levelID;
     loaded = true;
     blocks.clear();
@@ -65,6 +68,7 @@ void level::loadLevel(int levelID)
 }
 void level::updateLevel()
 {
+    if (dt >0.3) return;
     if (glorpStepTimer >= 1) glorpStepTimer += 1;
     if (glorpStepTimer >= 101) glorpStepTimer = 0;
     if (gleepStepTimer >= 1) gleepStepTimer += 1;
@@ -131,7 +135,9 @@ void level::updateLevel()
         soundEngine->playSounds("sounds/gleepJump.wav");
         glp->yPos-=glp->yV*dt;
         glp->yV = 1;
-
+        for (int i = 0; i < 10; i++){
+                particleSystem->addParticle(glp->xPos,glp->yPos-0.04,(ran()-0.5),(ran()*0.4),ran()*90,0.003,0.3,0.6,0.6,0.6);
+        }
     }
     else if (gleepCollide())
     {
@@ -187,6 +193,9 @@ void level::updateLevel()
         glrp->yPos -= glrp->yV * dt;
         glrp->yV = 1;
         soundEngine->playSounds("sounds/glorpJump.wav");
+        for (int i = 0; i < 10; i++){
+                particleSystem->addParticle(glrp->xPos,glrp->yPos-0.04,(ran()-0.5),(ran()*0.4),ran()*90,0.003,0.3,0.6,0.6,0.6);
+        }
     }
     else if (glorpCollide())
     {
@@ -206,6 +215,10 @@ void level::updateLevel()
         soundEngine->playSounds("sounds/glorpDash.wav");
         if (playersCollide())
         {
+            gleepSmoke = 0.4;
+            for (int i = 0; i < 30; i++){
+                particleSystem->addParticle(glp->xPos,glp->yPos,ran()-0.5,1.2*(ran()-0.4),ran()*90,0.002,0.3,0,0.6,0);
+            }
             glp->xV = glrp->xV*3;
             glp->yV *= -0.25;
         }
@@ -219,18 +232,61 @@ void level::updateLevel()
 
         if (playersCollide())
         {
+            glorpSmoke = 0.4;
+            for (int i = 0; i < 30; i++){
+                particleSystem->addParticle(glrp->xPos,glrp->yPos,ran()-0.5,1.2*(ran()-0.4),ran()*90,0.002,0.3,0,0.6,0);
+            }
             glrp->yV = 1;
             if (glp->xV > 0) {
-                    glrp->xV = 2;
+                    glrp->xV = 2.5;
             } else if (glp->xV < 0) {
-                    glrp->xV = -2;
+                    glrp->xV = -2.5;
             } else {
-                glrp->yV = 1.5;
+                glrp->yV = 1;
             }
         }
         glp->attackCooldown = 0;
     }
-    particleSystem->addParticle(glp->xPos,glp->yPos-0.049,0.3,0.3,0,0.002,1,1,1,1);
+
+    if (glp->xV >0.01 && glp->yV < 0.02 && glp->yV > -0.02){
+    if (ran() >0.96){
+        float xV = -ran()*0.1;
+        particleSystem->addParticle(glp->xPos,glp->yPos-0.04,xV,ran()*0.4,ran()*90,0.004,0.45,0.5,0.5,0.5);
+    }
+    }
+
+    if (glp->xV < -0.01 && glp->yV < 0.02 && glp->yV > -0.02){
+    if (ran() >0.96){
+        float xV = ran()*0.1;
+        particleSystem->addParticle(glp->xPos,glp->yPos-0.04,xV,ran()*0.4,ran()*90,0.004,0.45,0.5,0.5,0.5);
+    }
+    }
+
+    if (glrp->xV >0.01 && glrp->yV < 0.02 && glrp->yV > -0.02){
+    if (ran() >0.96){
+        float xV = -ran()*0.1;
+        particleSystem->addParticle(glrp->xPos,glrp->yPos-0.04,xV,ran()*0.4,ran()*90,0.004,0.45,0.5,0.5,0.5);
+    }
+    }
+
+    if (glrp->xV < -0.01 && glrp->yV < 0.02 && glrp->yV > -0.02){
+    if (ran() >0.96){
+        float xV = ran()*0.1;
+        particleSystem->addParticle(glrp->xPos,glrp->yPos-0.04,xV,ran()*0.4,ran()*90,0.004,0.45,0.5,0.5,0.5);
+    }
+    }
+
+    if (gleepSmoke > 0){
+        gleepSmoke -= dt;
+        particleSystem->addParticle(glp->xPos,glp->yPos,0,0,ran()*90,0.01,0.2,0.3,0.5,0.5);
+    }
+
+        if (glorpSmoke > 0){
+        glorpSmoke -= dt;
+        particleSystem->addParticle(glrp->xPos,glrp->yPos,0,0,ran()*90,0.01,0.2,0,0.5,0);
+    }
+        glp->updatePlayer(dt);
+    glrp->updatePlayer(dt);
 
     particleSystem->updateParticles(dt);
 }
@@ -302,7 +358,8 @@ void level::drawLevel()
     glp->sprite->pos.x = glp->xPos*levelScale.x;
     glp->sprite->pos.y = glp->yPos*levelScale.y;
 
-    glp->updatePlayer(dt);
+    particleSystem->drawParticles();
+
     glp->displayPlayer();
 
     glrp->sprite->scale.x = glrp->width*levelScale.x;
@@ -310,11 +367,9 @@ void level::drawLevel()
     glrp->sprite->pos.x = glrp->xPos*levelScale.x;
     glrp->sprite->pos.y = glrp->yPos*levelScale.y;
 
-    glrp->updatePlayer(dt);
     glrp->displayPlayer();
 
 
-    particleSystem->drawParticles();
 }
 
 bool level::gleepCollide()
@@ -399,5 +454,11 @@ bool level::checkWinner()
         return true;
     }
     return false;
+}
+
+
+float level::ran()
+{
+    return dis(gen);
 }
 
