@@ -213,6 +213,7 @@ void level::updateLevel()
     {
         glrp->xV *= 2;
         soundEngine->playSounds("sounds/glorpDash.wav");
+        glorpSmoke = 0.2;
         if (playersCollide())
         {
             gleepSmoke = 0.4;
@@ -284,6 +285,10 @@ void level::updateLevel()
         if (glorpSmoke > 0){
         glorpSmoke -= dt;
         particleSystem->addParticle(glrp->xPos,glrp->yPos,0,0,ran()*90,0.01,0.2,0,0.5,0);
+    }
+    if (glorpDash> 0){
+        glorpDash -= dt;
+        particleSystem->addParticle(glrp->xPos,glrp->yPos,0,0,ran()*90,0.01,0.15,0,0.5,0);
     }
         glp->updatePlayer(dt);
     glrp->updatePlayer(dt);

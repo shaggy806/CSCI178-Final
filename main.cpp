@@ -247,20 +247,23 @@ LRESULT CALLBACK WndProc(	HWND	hWnd,			// Handle For This Window
 {
     switch (uMsg)									// Check For Windows Messages
     {
-    case WM_ACTIVATE:							// Watch For Window Activate Message
+    case WM_ACTIVATE:
+{
+    if (LOWORD(wParam) == WA_INACTIVE)
     {
-        if (!HIWORD(wParam))					// Check Minimization State
-        {
-            active=TRUE;						// Program Is Active
+        active = false;
+        if (myScene->manager->currentScreen == myScene->manager->MAIN_GAME){
+        myScene->manager->currentScreen = myScene->manager->PAUSEPAGE;
+        myScene->manager->currentState  = myScene->manager->PAUSED;
         }
-        else
-        {
-            active=FALSE;						// Program Is No Longer Active
-        }
-
-        return 0;								// Return To The Message Loop
+    }
+    else
+    {
+        active = true;
     }
 
+    return 0;
+}
     case WM_SYSCOMMAND:							// Intercept System Commands
     {
         switch (wParam)							// Check System Calls

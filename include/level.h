@@ -38,6 +38,7 @@ class level
         glorp *glrp = new glorp();
 
         float gleepSmoke = 0;
+        float glorpDash = 0;
         float glorpSmoke = 0;
 
 

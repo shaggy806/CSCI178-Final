@@ -201,6 +201,12 @@ void _gameManager::update()
         break;
 
     case END_SCREEN:
+        if (GetAsyncKeyState('R') & 0x8000){
+            gameLevel->loadLevel(gameLevel->currentLevelID);
+            currentState = MAIN_GAME;
+            currentScreen = GAMEBG;
+            soundEngine->playMusic("sounds/level2.mp3");
+        } else
         if (mouseClicked)
         {
             soundEngine->playMusic("sounds/main_menu.mp3");
